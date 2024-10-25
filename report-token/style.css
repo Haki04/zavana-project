@@ -179,3 +179,20 @@ div.copy{
   cursor: pointer;
   user-select: none;
 }
+
+.maker{
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.maker span, .maker span h1{
+  font-size: 10px;
+  display: inline-block;
+}
+.maker span h1{
+  text-transform: uppercase;
+}
