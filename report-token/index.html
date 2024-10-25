@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cek Data Pulsa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="copy" id="copy">
+      <span class="x" onclick="hiddenBox(document.getElementsByClassName('copy'), document.getElementById('x'))" data="false" id="x">X</span>
+      <div id="report-data-show">
+        <span class="date" id="date"></span>
+        <ul class="list" id="list">
+         Empty
+        </ul>
+        <span class="copy-text"onclick="copyToClipboard()" id="icon-copy">Copy</span></div>
+    </div>
+    <div class="room-have-done-report">
+      <span class="word" onclick="hiddenBox(document.getElementsByClassName('copy'), document.getElementById('x'))">Report : <span class="number" id="number-room">0</span><span class="notif hidden" id="notif">Added</span></span>
+    </div>
+    <form onsubmit="clicked(event)" class="saldo">
+      <h1>Token Report</h1>
+      <label for="kamar">Nomor kamar</label>
+      <input type="text" name="" id="kamar" required>
+      <label for="saldo">Jumlah saldo</label>
+      <input type="text" name="" id="saldo" required>
+      <label for="ket">Keterangan</label>
+      <select name="" id="ket" required>
+        <option value="V">V</option>
+        <option value="O">OC</option>
+        <option value="will O">Will OC</option>
+        <option value="-">Others</option>
+      </select>
+      <label id="btn">
+      <button type="submit">Note</button>
+      </label>
+    </form>
+  </div>
+  
+  <script src="function.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: arial;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-image: linear-gradient(to right bottom, #FFDBB5, #FFEAC5);
+}
+
+form{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: 0.4px solid rgba(0,0,0,0.5);
+  padding: 5px;
+  border-radius: 5px;
+  max-width: 200px;
+  background-color: #D1BB9E;
+  box-shadow: 5px 5px 1px rgba(0,0,0,0.4);
+}
+form >*:not(label,h1){
+  margin-top: 5px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.3);
+}
+
+form h1{
+  font-size: 15px;
+  text-align: center;
+  width: 100%;
+  margin: 5% 0;
+  font-weight: bold;
+}
+form label{
+  font-size: 12px;
+  
+}
+form input {
+  height: 30px;
+  text-transform: lowercase;
+  background-color: #D6C7AE;
+  padding-left: 2px;
+}
+form select {
+  cursor: pointer;
+  background-color: #D6C7AE;
+}
+form #btn{
+  width: 100%;
+  margin-top: 10%;
+  display: flex;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+form #btn button {
+  width: 50%;
+  height: 30px;
+  margin: 5%;
+  cursor: pointer;
+  border: none;
+  background-color: rgba(0,0,0, .1);
+  transition: .4s;
+}
+
+#btn button:hover{
+  background-color: rgba(0,0,0, .2);
+}
+
+.room-have-done-report{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  user-select: none;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.room-have-done-report .number{
+  font-weight: bold;
+}
+
+.room-have-done-report .notif{
+  background-color: lightgreen;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 5%;
+  transition: .3s;
+}
+
+.hidden{
+  display: none;
+}
+
+div.copy{
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, .2);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  
+}
+
+.copy#copy{
+  display: none;
+}
+
+.copy div{
+  width: 80%;
+  max-width: 400px;
+  background-color: #AB886D;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.copy div .date{
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background-color: #AB886D;
+  padding: 0 10px;
+  font-weight: bold;
+}
+.copy div ul{
+  width: 100%;
+  max-height: 200px;
+  overflow-x: scroll;
+}
+
+.copy div ul li{
+  list-style: none;
+  font-size: 12px;
+  border-bottom: .2px solid black;
+  margin-top: 5px;
+  background-color: transparent;
+}
+
+.copy div span.copy-text{
+  position: absolute;
+  bottom: -40px;
+  padding: 5px;
+  border-radius: 10%;
+  right: 0px;
+  cursor: pointer;
+  background-color: rgba(171, 136, 109, 0.7);
+}
+
+.copy .x{
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
