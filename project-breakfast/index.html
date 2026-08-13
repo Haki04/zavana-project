@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container" class="w-full bg-amber-50 h-screen overflow-hidden">
+      <div id="nav" class="w-full flex justify-center absolute bg-white/50">
+        <ul
+          class="flex flex-row bg-transparent w-full justify-center gap-8 md:justify-around lg:justify-center p-1"
+        >
+          <li onclick="menuFilter(this)" data-filter="all">All</li>
+          <li onclick="menuFilter(this)" data-filter="indonesian">
+            Indonesian Breakfast
+          </li>
+          <li onclick="menuFilter(this)" data-filter="zavana">
+            Zavana Breakfast
+          </li>
+          <li onclick="menuFilter(this)" data-filter="vegetarian">
+            Vegetarian
+          </li>
+          <li onclick="menuFilter(this)" data-filter="drink">Drink</li>
+        </ul>
+      </div>
+      <div
+        id="content"
+        class="h-full border-b-4 pb-10 w-full no-scrollbar overflow-y-scroll grid grid-cols-1 md:grid-cols-3 md:mt-1 lg:grid-cols-4 gap-2 place-items-center"
+      >
+        <!-- <div
+          class="card flex flex-col md:flex-row flex-wrap"
+          data="makanan"
+          id="kategori"
+        >
+          <img
+            src="./assets/img/makanan.jpg"
+            alt=""
+            class="w-[50%] h-full md:w-full md:h-[50%]"
+          />
+          <ul
+            class="md:ml-1 p-1 flex flex-row flex-wrap w-[50%] md:w-auto md:block justify-center gap-1"
+          >
+            <li class="text-[12px] md:text-[14px] lg:text-[18px] lg:mt-[2%]">
+              Nasi goreng
+            </li>
+            <li class="text-justify text-[7px] md:text-[9px] lg:text-[12px]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+              deleniti non ut,
+            </li>
+            <li class="w-[50%]">
+              <button
+                class="cursor-pointer text-[6px] md:text-[10px] lg:text-[14px] p-1 my-[7%] bg-green-600 hover:bg-green-300 transition w-full rounded"
+              >
+                Order Now
+              </button>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
