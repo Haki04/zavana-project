@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./dist/output.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="checkbox" name="" id="toggle" class="hidden" />
+    <div
+      id="container"
+      class="w-full min-w-[300px] bg-amber-50 h-screen overflow-hidden"
+    >
+      <div
+        id="my-choose"
+        class="absolute z-10 w-full h-screen flex justify-center items-center hidden bg-white/50"
+      >
+        <div
+          class="w-[50%] max-w-[300px] h-[50%] min-h-[400px] bg-white/95 rounded p-1 flex flex-col items-center justify-center gap-3 relative shadow-sm border-2 border-gray-400/50"
+        >
+          <span
+            class="absolute -top-4 -right-4 cursor-pointer font-bold text-red-400"
+            onclick="toggleShow()"
+            >X</span
+          >
+          <h1 class="font-bold">My Breakfast</h1>
+          <input
+            type="text"
+            placeholder="Name"
+            class="w-[80%] bg-amber-200 p-1 md:p-2 rounded text-sm outline-none"
+            id="input-name"
+          />
+          <select
+            name=""
+            class="w-[80%] bg-amber-200 p-1 md:p-2 rounded text-sm"
+            id="room-number"
+          >
+            <option value="" disabled selected>Room number</option>
+          </select>
+
+          <ul
+            class="w-[80%] h-[40%] overflow-scroll no-scrollbar"
+            id="list-breakfast"
+          ></ul>
+          <button
+            id="send-button"
+            class="bg-green-500 w-[60%] rounded p-1 cursor-pointer text-[10px] md:text-sm"
+            onclick="sendWhatsApp()"
+          >
+            kirim to WhatsApp
+          </button>
+        </div>
+      </div>
+      <div id="nav" class="w-full flex justify-center absolute bg-white">
+        <ul
+          class="flex flex-row bg-transparent w-full justify-center items-center lg:gap-4 gap-1 md:justify-around lg:justify-center p-1"
+        >
+          <li class="li-list" onclick="menuFilter(this)" data-filter="all">
+            All
+          </li>
+          <li
+            class="li-list"
+            onclick="menuFilter(this)"
+            data-filter="indonesian"
+          >
+            Indonesian
+          </li>
+          <li class="li-list" onclick="menuFilter(this)" data-filter="zavana">
+            Zavana
+          </li>
+          <li
+            class="li-list"
+            onclick="menuFilter(this)"
+            data-filter="vegetarian"
+          >
+            Vegetarian
+          </li>
+          <li class="li-list" onclick="menuFilter(this)" data-filter="drink">
+            Drink
+          </li>
+          <li
+            class="li-list md:w-[20px] md:h-[20px] w-[15px] h-[15px] absolute right-[5%] md:relative lg:absolute last:!border-b-transparent"
+            id="my-choose"
+          >
+            <span id="count-list" class="absolute -top-2 -right-2 text-[10px]"
+              >0</span
+            >
+            <img
+              src="./assets/img/pencil.png"
+              alt=""
+              class="md:w-[20px] w-[15px]"
+              onclick="toggleShow()"
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        id="content"
+        class="h-full border-b-4 pb-10 w-full no-scrollbar overflow-y-scroll grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-2 place-items-center place-content-start mt-7 md:mt-10"
+      >
+        <!-- <div
+          class="card flex flex-col md:flex-row flex-wrap"
+          data="makanan"
+          id="kategori"
+        >
+          <img
+            src="./assets/img/makanan.jpg"
+            alt=""
+            class="w-[50%] h-full md:w-full md:h-[50%]"
+          />
+          <ul
+            class="md:ml-1 p-1 flex flex-row flex-wrap w-[50%] md:w-auto md:block justify-center gap-1"
+          >
+            <li class="text-[12px] md:text-[14px] lg:text-[18px] lg:mt-[2%]">
+              Nasi goreng
+            </li>
+            <li class="text-justify text-[7px] md:text-[9px] lg:text-[12px]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+              deleniti non ut,
+            </li>
+            <li class="w-[50%]">
+              <button
+                class="cursor-pointer text-[6px] md:text-[10px] lg:text-[14px] p-1 my-[7%] bg-green-600 hover:bg-green-300 transition w-full rounded"
+              >
+                Order Now
+              </button>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
