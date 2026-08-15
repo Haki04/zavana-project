@@ -1,8 +1,89 @@
+// const data_nama_makanan_minuman = {
+//   indonesian: ["nasi goreng", "mie goreng", "gado-gado"],
+//   zavana: ["omelet", "scrembel", "poch egg"],
+//   vegetarian: ["sanwhich"],
+//   drink: ["coffee", "tea", "orange juice"],
+// };
+
 const data_nama_makanan_minuman = {
-  indonesian: ["nasi goreng", "mie goreng", "gado-gado"],
-  zavana: ["omelet", "scrembel", "poch egg"],
-  vegetarian: ["sanwhich"],
-  drink: ["coffee", "tea", "orange juice"],
+  indonesian: [
+    {
+      name: "nasi goreng",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "food",
+    },
+    {
+      name: "mie goreng",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "food",
+    },
+    {
+      name: "gado gado",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "food",
+    },
+  ],
+  zavana: [
+    {
+      name: "omelete",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "makanan",
+    },
+    {
+      name: "puchegg",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "makanan",
+    },
+    {
+      name: "pancake",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "makanan",
+    },
+  ],
+  vegetarian: [
+    {
+      name: "sanwhich",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "food",
+    },
+  ],
+  drink: [
+    {
+      name: "coffee",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "drink",
+    },
+    {
+      name: "tea",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "drink",
+    },
+    {
+      name: "orange juice",
+      ingredient: [
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
+      ],
+      category: "drink",
+    },
+  ],
 };
 
 const room_number = [
@@ -10,7 +91,6 @@ const room_number = [
   116, 117, 118, 119, 120,
 ];
 const description_makanana = {};
-const data_nama_minuman = ["coffee", "tea", "orenge juice"];
 const data_kategory = ["makanan", "minuman"];
 const myListChoose = [];
 
@@ -39,16 +119,15 @@ const cardMenus = (i) => {
             class="md:ml-1 p-1 flex flex-row flex-wrap w-[50%] md:w-auto md:block justify-center gap-1 md:-mt-3"
           >
             <li class="text-[17px] md:text-[18px] md:mb-2 lg:mb-1 lg:text-2xl">
-              ${i}
+              ${i.name}
             </li>
             <li class="text-justify text-[12px] lg:text-[15px] h-[70px] overflow-scroll no-scrollbar">
-             <b> ingredient </b>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-              deleniti non ut 
+             <b> ingredient </b>: ${i.ingredient}
             </li>
             <li class="w-[70%] md:mt-3">
               <button
                 class="cursor-pointer text-[14px] p-0.5 bg-amber-100 hover:bg-amber-200 transition w-full rounded"
-               onClick="addChoose(this)" data-list="${i}" id="btn-add">
+               onClick="addChoose(this)" data-list="${i.name}" id="btn-add">
                 Choose Now
               </button>
             </li>
@@ -110,24 +189,37 @@ const toggleShow = () => {
 const removeChoose = (i) => {
   if (i || i == 0) {
     myListChoose.splice(i, 1);
-    mapingDataList();
+    if (myListChoose.length == 0) {
+      total_item.innerHTML = 0;
+    } else {
+      total_item.innerHTML = myListChoose.length;
+    }
   }
+  mapingDataList();
 };
 
 const mapingDataList = () => {
   list.innerHTML = myListChoose
     .map(
       (item, index) =>
-        `<li class="relative" id="data-breakfast" data-breakfast="${item}">${index + 1}. ${item}<span onclick="removeChoose(${index})" class="absolute right-0 text-red-300">X</span></li>`,
+        `<li class="relative" id="data-breakfast" data-breakfast="${item}">- ${item}<span onclick="removeChoose(${index})" class="absolute right-0 text-red-300">
+      <span class="text-sm mr-2 text-yellow-400">
+      food
+      </span>
+      
+      X</span></li>`,
     )
     .join("");
 };
 const addChoose = (e) => {
-  let count = 0;
-  let my_list = e.getAttribute("data-list");
-  myListChoose.push(my_list);
-  total_item.innerHTML = count += myListChoose.length;
-  mapingDataList();
+  if (myListChoose.length < 4) {
+    const my_list = e.getAttribute("data-list");
+    myListChoose.push(my_list);
+    total_item.innerHTML = myListChoose.length;
+    mapingDataList();
+  } else {
+    alert("maksimum order items are 4 please text our reception for the extra");
+  }
 };
 
 const cekMaksimumBreakfastTotal = () => {};
