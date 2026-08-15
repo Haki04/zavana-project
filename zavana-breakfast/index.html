@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="stylesheet" href="./src/output.css" />
     <title>Document</title>
   </head>
+
   <body>
     <input type="checkbox" name="" id="toggle" class="hidden" />
     <div
@@ -17,7 +18,7 @@
         class="absolute z-10 w-full h-screen flex justify-center items-center hidden bg-white/50"
       >
         <div
-          class="w-[50%] max-w-[300px] h-[50%] min-h-[400px] bg-white/95 rounded p-1 flex flex-col items-center justify-center gap-3 relative shadow-sm border-2 border-gray-400/50"
+          class="w-[80%] md:w-[50%] max-w-[300px] h-[50%] min-h-[400px] bg-white/95 rounded p-1 pb-3 flex flex-col items-center justify-center gap-3 relative shadow-sm border-2 border-gray-400/50"
         >
           <span
             class="absolute -top-4 -right-4 cursor-pointer font-bold text-red-400"
@@ -43,9 +44,18 @@
             class="w-[80%] h-[40%] overflow-scroll no-scrollbar"
             id="list-breakfast"
           ></ul>
+          <textarea
+            name=""
+            id=""
+            placeholder="do have extra request.... "
+            class="resize-none w-[80%] h-[30%] text-sm"
+          ></textarea>
+          <span class="w-full p-1 text-sm text-center"
+            >4 maksimum items for each room
+          </span>
           <button
             id="send-button"
-            class="bg-green-500 w-[60%] rounded p-1 cursor-pointer text-[10px] md:text-sm"
+            class="bg-green-500 w-[60%] rounded p-1 cursor-pointer text-[14px] md:text-sm"
             onclick="sendWhatsApp()"
           >
             kirim to WhatsApp
