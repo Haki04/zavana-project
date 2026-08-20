@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="stylesheet" href="./src/output.css" />
     <title>Document</title>
   </head>
 
@@ -39,6 +39,13 @@
           >
             <option value="" disabled selected>Room number</option>
           </select>
+          <select
+            name=""
+            class="w-[80%] bg-amber-200 p-1 md:p-2 rounded text-sm"
+            id="time-breakfast"
+          >
+            <option value="" disabled selected>Time</option>
+          </select>
 
           <ul
             class="w-[80%] h-[40%] overflow-scroll no-scrollbar"
@@ -46,9 +53,9 @@
           ></ul>
           <textarea
             name=""
-            id=""
             placeholder="do have extra request.... "
             class="resize-none w-[80%] h-[30%] text-sm"
+            id="extra-request"
           ></textarea>
           <span class="w-full p-1 text-sm text-center"
             >4 maksimum items for each room
