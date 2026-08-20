@@ -35,21 +35,21 @@ const data_nama_makanan_minuman = {
       ingredient: [
         " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
       ],
-      category: "makanan",
+      category: "food",
     },
     {
       name: "puchegg",
       ingredient: [
         " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
       ],
-      category: "makanan",
+      category: "food",
     },
     {
       name: "pancake",
       ingredient: [
         " Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nulla culpa quam id reiciendis fuga quos sunt esse distinctio et. Possimus quis quod accusamus est rerum dolor corrupti dignissimos doloribus!",
       ],
-      category: "makanan",
+      category: "food",
     },
   ],
   vegetarian: [
@@ -90,6 +90,7 @@ const room_number = [
   101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115,
   116, 117, 118, 119, 120,
 ];
+const time_bf = ["08:00", "08:15", "08:30", "08:45", "09:00"];
 const description_makanana = {};
 const data_kategory = ["makanan", "minuman"];
 const myListChoose = [];
@@ -103,6 +104,8 @@ const total_item = document.getElementById("count-list");
 const guest_name = document.getElementById("input-name");
 const guest_room = document.getElementById("room-number");
 const send_button = document.getElementById("send-button");
+const extra_request = document.getElementById("extra-request");
+const time_breakfast = document.getElementById("time-breakfast");
 
 const cardMenus = (i) => {
   div.innerHTML += `<div
@@ -127,8 +130,8 @@ const cardMenus = (i) => {
             <li class="w-[70%] md:mt-3">
               <button
                 class="cursor-pointer text-[14px] p-0.5 bg-amber-100 hover:bg-amber-200 transition w-full rounded"
-               onClick="addChoose(this)" data-list="${i.name}" id="btn-add">
-                Choose Now
+               onClick="addChoose(this)" data-list="${i.name}" data-list-dua="${i.category}" id="btn-add">
+                Choose now
               </button>
             </li>
           </ul>
@@ -155,10 +158,16 @@ const showMenus = (data = "") => {
   }
 };
 
+const listTimeBreakfast = () => {
+  time_breakfast.innerHTML += time_bf
+    .map((item) => `<option value="${item}">${item}</option>`)
+    .join("");
+};
 const listRoomNumber = () => {
   guest_room.innerHTML += room_number
     .map((item) => `<option value="${item}">${item}</option>`)
     .join("");
+  listTimeBreakfast();
 };
 
 const menuFilter = (el) => {
@@ -202,27 +211,79 @@ const mapingDataList = () => {
   list.innerHTML = myListChoose
     .map(
       (item, index) =>
-        `<li class="relative" id="data-breakfast" data-breakfast="${item}">- ${item}<span onclick="removeChoose(${index})" class="absolute right-0 text-red-300">
+        `<li class="relative" id="data-breakfast"
+       data-breakfast="${item}">${index + 1}. ${item.name} 
+      x${item.total}<span onclick="removeChoose(${index})"
+       class="absolute right-0 text-red-300">
       <span class="text-sm mr-2 text-yellow-400">
       food
       </span>
-      
+
       X</span></li>`,
     )
     .join("");
 };
+const cekValid = () => {
+  const total_food = myListChoose.reduce(
+    (total, item) => (item.kategory === "food" ? total + item.total : total),
+    0,
+  );
+  const total_drink = myListChoose.reduce(
+    (total, item) => (item.kategory === "drink" ? total + item.total : total),
+    0,
+  );
+
+  if ((total_food < 2 && total_drink < 2) || myListChoose.length == 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
 const addChoose = (e) => {
   if (myListChoose.length < 4) {
     const my_list = e.getAttribute("data-list");
-    myListChoose.push(my_list);
-    total_item.innerHTML = myListChoose.length;
+    const my_list_2 = e.getAttribute("data-list-dua");
+    const index_items = myListChoose.findIndex((item) => item.name === my_list);
+
+    if (index_items !== -1 && myListChoose[index_items].total <= 2) {
+      cekMaksimumBreakfastTotal(index_items);
+    } else {
+      if (cekValid()) {
+        console.log("berhasil menambahkan");
+
+        console.log(cekValid());
+        myListChoose.push({
+          name: my_list,
+          total: 1,
+          kategory: my_list_2,
+        });
+      } else {
+        console.log("gagal menambahkan");
+        // cekMaksimumBreakfastTotal(index_items);
+      }
+
+      total_item.innerHTML = myListChoose.length;
+    }
     mapingDataList();
   } else {
     alert("maksimum order items are 4 please text our reception for the extra");
   }
+
+  console.log(myListChoose);
 };
 
-const cekMaksimumBreakfastTotal = () => {};
+const cekMaksimumBreakfastTotal = (index) => {
+  if (index !== -1) {
+    if (myListChoose[index].total < 2 && cekValid()) {
+      myListChoose[index].total += 1;
+      console.log(cekValid() + " test");
+    } else {
+      alert("maksimal 2 makanan dan 2 minuman");
+    }
+  } else {
+    console.log("iiiiiiiiiii");
+  }
+};
 
 const sendWhatsApp = () => {
   if (
@@ -240,7 +301,8 @@ const sendWhatsApp = () => {
 =====================
 Name : ${guest_name.value}
 Room : ${guest_room.value}
-Time : 08:00 
+Time : ${new Date().getHours()} : ${new Date().getMinutes()}
+Note : ${extra_request.value}
 List : 
 ${list_breakfast}
     
