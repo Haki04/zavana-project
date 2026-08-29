@@ -1,7 +1,7 @@
 import { pesanan_selesai } from "../controller/controller";
 
 const pesanan = document.getElementById("pesanan");
-for (let i = 0; i < 7; i++) {
+for (let i = 0; i < 17; i++) {
   pesanan.innerHTML += `
  <div class="bg-white w-[150px] min-h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
           <div class="bg-white w-full flex justify-center items-center h-[100px]">

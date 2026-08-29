@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barang</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="w-full h-screen bg-amber-100 overflow-hidden justify-center flex py-3">
+
+      <div class="h-full bg-gray-600 w-[20%] min-w-[200px]">
+        <div class="bg-transparent w-full h-[20%] flex justify-center items-center">
+          <h1 class="text-4xl font-bold text-white">HAKI</h1>
+        </div>
+        <div class="h-[80%] w-full relative overflow-hidden"> 
+            <ul id="navigation" class="flex flex-col justify-start w-full h-full bg-transparent pt-2 pl-2"> </ul>
+             <button class="p-2 flex justify-start gap-3 cursor-pointer absolute bottom-[5%] left-[%]"><img src="/icon/logout.png" class="w-[20px]" alt="">Logout</button>
+        </div>
+      </div>
+      <div
+        class="w-[80%] max-w-[1200px] h-full gap-1 items-start flex-wrap"
+      >
+
+      <div class=" grid grid-cols-3 gap-2">
+        <div class="bg-red-50 h-[150px] max-w-[300px] text-center">1</div>
+        <div class="bg-yellow-200  h-[150px] max-w-[300px] text-center">2</div>
+        <div class="bg-orange-300  h-[150px] max-w-[300px] text-center">3</div>
+      </div>
+
+      <div class="w-full max-h-[50%] bg-white/40" 
+        id="content-barang">
+        <table class="w-full h-full m-2 bg-white/40 [&>td]:m-3 border-2">
+          <thead>
+              <tr class="h-[50px]">
+                <th>Name</th>
+                <th>jumlah</th>
+                <th>satuan</th>
+                <th>status</th>
+                <th>Action</th>
+              </tr>
+          </thead>
+            <tbody class=" [&>tr]:text-center [&>tr]:bg-white" id="table-barang">
+              </tbody>
+              
+            
+          
+        </table>
+      </div>
+       
+    </div>
+    <script type="module" src="/src/view/barang.js"></script>
+  </body>
+</html>
