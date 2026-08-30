@@ -1,7 +1,6 @@
 import { tombol_barang } from "../controller/controller";
 import { printNav } from "./components/nav";
 import { showTable } from "./components/table";
-const content_barang = document.getElementById("content-barang");
 
 // load nav view
 

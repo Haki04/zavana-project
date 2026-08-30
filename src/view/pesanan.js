@@ -1,6 +1,6 @@
 import { pesanan_selesai } from "../controller/controller";
 
-const pesanan = document.getElementById("pesanan");
+const element = document.getElementById("pesanan");
 for (let i = 0; i < 17; i++) {
   pesanan.innerHTML += `
  <div class="bg-white w-[150px] min-h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
@@ -21,7 +21,7 @@ for (let i = 0; i < 17; i++) {
 `;
 }
 
-pesanan.addEventListener("click", (e) => {
+element.addEventListener("click", (e) => {
   const action = e.target.dataset.action;
   pesanan_selesai(action);
 });
