@@ -1,5 +1,23 @@
 const element = document.getElementById("input-pesanan");
 
+window.data_item = [
+  {
+    name: "nasi goreng",
+    category: "lokal",
+    img: "input.png",
+  },
+  {
+    name: "gado gado",
+    category: "lokal",
+    img: "logout.png",
+  },
+  {
+    name: "spageti",
+    category: "eropa",
+    img: "order.png",
+  },
+];
+
 const data_list_order = [];
 
 window.countOrderItem = (sign, e) => {
@@ -14,8 +32,7 @@ window.countOrderItem = (sign, e) => {
 };
 
 window.removeItem = (items, index) => {
-  data_list_order.slice(index, 1);
-  console.log(data_list_order);
+  data_list_order.splice(index, 1);
 
   showItemOrder(items, data_list_order);
 };
@@ -23,11 +40,16 @@ window.removeItem = (items, index) => {
 window.addListItem = (items, e, evnt) => {
   const total = e.querySelector("input");
   const name_item = evnt.target;
-  if (Number(total.value) > 0 && evnt.target.tagName !== "BUTTON") {
-    data_list_order.push({
-      name: name_item.getAttribute("data-name"),
-      total: total.value,
-    });
+  if (Number(total.value) > 0) {
+    if (
+      evnt.target.tagName === "BUTTON" &&
+      name_item.getAttribute("data-name")
+    ) {
+      data_list_order.push({
+        name: name_item.getAttribute("data-name"),
+        total: total.value,
+      });
+    }
   } else {
     alert("pastikan mengisi total item yang di tambahkan ");
   }
@@ -49,36 +71,36 @@ window.btnToggle = (e) => {
   }
 };
 
-function showItemOrder(items, data) {
-  let el = "";
-  data.forEach((d, i) => {
-    el += `
-         <li class="flex justify-between">
-                       ${d.name} - ${d.total}x
-                        <span
-                          onclick="removeItem(this)"
-                          class="mr-[10px] cursor-pointer text-red-500"
-                          onclick="removeItem(document.getElementById('list-item-li'),${i})">X</span
-                        >
-                      </li>
-        `;
-  });
-  items.innerHTML = el;
-}
+window.filterItems = (arg) => {
+  setTimeout(
+    showItems(
+      data_item.filter((item) =>
+        ["name", "category"].some((key) =>
+          item[key]?.toLowerCase().startsWith(arg.toLowerCase()),
+        ),
+      ),
+    ),
+    500,
+  );
+  console.log(
+    data_item.filter((item) => item.name.toLocaleLowerCase().startsWith(arg)),
+  );
+};
 
-function showItems() {
-  for (let i = 0; i < 10; i++) {
+window.showItems = (data) => {
+  element.innerHTML = "";
+  data.forEach((d, i) => {
     element.innerHTML += `
          <div
           class="w-[200px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden" 
         >
           <div class="w-[40%] flex justify-center items-center">
-            <img class="w-[50px]" src="/icon/input.png" alt="" />
+            <img class="w-[50px]" src="/icon/${d.img}" alt="" />
           </div>
           <div
             class="w-[60%] bg-white h-full flex flex-col justify-center items-center gap-1" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
           >
-            <h1 class="text-1xl">Nasi goreng</h1>
+            <h1 class="text-1xl">${d.name}</h1>
             <div
               class="flex flex-row px-1 rounded border-2 items-center" 
             >
@@ -95,8 +117,47 @@ function showItems() {
           </div>
         </div>
         `;
+  });
+};
+
+window.sendOrder = () => {
+  if (data_list_order.length !== 0) {
+    data_list_order.forEach((item) =>
+      console.log(
+        `
+     name : ${item.name}
+     total : ${item.total}
+     `,
+      ),
+    );
+    alert("berhasil menambahkan");
+  } else {
+    alert("gagal");
+  }
+};
+
+function showItemOrder(items, data) {
+  let el = "";
+  data.forEach((d, i) => {
+    el += `
+         <li class="flex justify-between">
+                       ${d.name} - ${d.total}x
+                        <span
+                          onclick="removeItem(document.getElementById('list-item-li'))"
+                          class="mr-[10px] cursor-pointer text-red-500"
+                          onclick="removeItem(document.getElementById('list-item-li'),${i})">X</span
+                        >
+                      </li>
+        `;
+  });
+  items.innerHTML = el;
+}
+
+function loopingSelect(rooms) {
+  for (let i = 101; i <= 120; i++) {
+    rooms.innerHTML += `<option value="${i}">${i}</option>`;
   }
 }
 
-function sendOrder(items) {}
-showItems();
+loopingSelect(document.getElementById("room-number"));
+showItems(data_item);

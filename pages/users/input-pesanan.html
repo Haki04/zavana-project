@@ -10,55 +10,56 @@
     <input type="checkbox" name="" id="toggle" class="hidden" />
     <div class="w-full h-screen bg-amber-100 flex flex-col items-center p-2">
       <div
-        class="w-[80%] max-w-[1200px] h-full bg-white/40 flex justify-between content-start gap-1 flex-wrap overflow-auto p-1"
-        id="input-pesanan"
+        class="fixed top-2 right-2 bg-white/50 z-10 border flex flex-row gap-3 p-1"
       >
-        <div
-          class="fixed top-2 right-2 bg-white z-10 border flex flex-row gap-3 p-1"
+        <span
+          class="absolute -left-6 font-bold cursor-pointer"
+          onclick="btnToggle(this)"
+          >&lt;</span
         >
-          <span
-            class="absolute -left-6 font-bold cursor-pointer"
-            onclick="btnToggle(this)"
-            ><</span
-          >
-          <ul
-            class="flex flex-row items-center gap-3 [&>li]:cursor-pointer [&>li]:text-[14px]"
-          >
-            <li>All</li>
-            <li>Lokal</li>
-            <li>Eropa</li>
-          </ul>
-          <input
-            type="search"
-            name=""
-            id=""
-            placeholder="cari"
-            class="border p-0.5"
-          />
+        <ul
+          class="flex flex-row items-center gap-3 [&>li]:cursor-pointer [&>li]:text-[14px]"
+        >
+          <li onclick="showItems(data_item)">All</li>
+          <li onclick="filterItems(this.textContent)">Lokal</li>
+          <li onclick="filterItems(this.textContent)">Eropa</li>
+        </ul>
+        <input
+          type="search"
+          name=""
+          id=""
+          onkeydown="filterItems(this.value)"
+          placeholder="Cari"
+          class="border p-0.5"
+        />
+        <div
+          class="absolute z-20 bg-white/70 flex justify-center items-center right-0 top-10 hidden"
+          id="item-order-list"
+        >
           <div
-            class="absolute z-20 bg-white/70 flex justify-center items-center right-0 top-10 hidden"
-            id="item-order-list"
+            class="w-[300px] p-1 bg-gray-300 [&>*]:w-[70%] flex flex-col items-center gap-3"
           >
-            <div
-              class="w-[300px] p-1 bg-gray-300 [&>*]:w-[70%] flex flex-col items-center gap-3"
+            <select name="" id="room-number">
+              <option value="" selected disabled>Rooms</option>
+              <option value="">101</option>
+            </select>
+            <ul
+              class="border h-[150px] bg-white p-1 overflow-auto"
+              id="list-item-li"
+            ></ul>
+            <button
+              onclick="sendOrder()"
+              class="p-1 mb-3 bg-green-300 border rounded cursor-pointer"
             >
-              <select name="" id="">
-                <option value="" selected disabled>Rooms</option>
-                <option value="">101</option>
-              </select>
-              <ul
-                class="border h-[150px] bg-white p-1 overflow-auto"
-                id="list-item-li"
-              ></ul>
-              <button
-                class="p-1 mb-3 bg-green-300 border rounded cursor-pointer"
-              >
-                kirim order
-              </button>
-            </div>
+              kirim order
+            </button>
           </div>
         </div>
       </div>
+      <div
+        class="w-[80%] max-w-[1200px] h-full bg-white/40 grid grid-cols-2 lg:grid-cols-4 justify-items-center content-start gap-1 overflow-auto p-1"
+        id="input-pesanan"
+      ></div>
     </div>
     <script type="module" src="/src/view/input-pesanan.js"></script>
   </body>
