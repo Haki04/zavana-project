@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="w-full h-screen bg-white flex justify-center">
+      <div class="w-[50%] bg-white p-2 fixed top-3">
+        <ul class="w-full flex justify-around items-center cursor-pointer">
+          <li onclick="inventory(document.getElementById('content'), 'hk')">
+            Housekeeping
+          </li>
+          <li onclick="inventory(document.getElementById('content'), 'fo')">
+            Front Office
+          </li>
+          <li
+            onclick="inventory(document.getElementById('content'), 'kitchen')"
+          >
+            Kitchen
+          </li>
+          <li
+            onclick="inventory(document.getElementById('content'), 'enginer')"
+          >
+            Enginering
+          </li>
+        </ul>
+      </div>
+      <div
+        class="w-full max-w-[1200px] h-full bg-amber-100 flex justify-center items-center"
+        id="content"
+      ></div>
+    </div>
+    <script type="module" src="/src/view/inventory.js"></script>
+  </body>
+</html>
