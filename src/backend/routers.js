@@ -13,9 +13,9 @@ export const getUser = async (req, res) => {
     });
   }
 };
-export const getSnack = async (req, res) => {
+export const getOrders = async (req, res) => {
   try {
-    const [results] = await db.query("SELECT * FROM snacks_room");
+    const [results] = await db.query("SELECT * FROM orders");
     res.json(results);
   } catch (error) {
     console.error("ERROR MYSQL:", error);
