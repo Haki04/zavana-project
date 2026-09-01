@@ -1,124 +1,152 @@
-window.inventory = (element, arg) => {
+const data_forms = {
+  section: `  <div
+          class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm"
+          id="form-inventory"
+        >
+          <h1 class="text-3xl text-center font-bold mb-3" id='title'></h1>
+          <input
+            id="item-name"
+            type="text"
+            class="w-full p-2 bg-white"
+            placeholder="Nama item"
+          />
+          <select name="" id="item-jenis" class="w-full bg-white p-2">
+            <option value="" disabled selected>Jenis</option>
+          </select>
+          <select name="" id="item-report" class="w-full bg-white p-2">
+            <option value="" disabled selected>Pilih laporan</option>
+          </select>
+          <input
+            id="item-jumlah"
+            type="number"
+            class="p-2 bg-white w-full"
+            placeholder="Jumlah"
+          />
+          <select name="" id="item-satuan" class="w-full bg-white p-2">
+            <option value="" disabled selected>Satuan</option>
+          </select>
+          <textarea
+            name=""
+            id="item-extra-coment"
+            placeholder="extra comment"
+            class="w-full bg-white p-2 h-20 overflow-auto resize-none"
+          ></textarea>
+          <button class="w-[70%] bg-white p-2 cursor-pointer" onclick="sendForm()">Report</button>
+        </div>`,
+};
+
+const data_section_form = {
+  hk: {
+    section_name: "hk",
+    item_list_jenis: [
+      "amenities",
+      "room-items",
+      "equipments-cleaning",
+      "chemical",
+    ],
+    item_list_laporan: ["kerusakan", "inventory"],
+    item_list_satuan: ["pcs", "jerigen", "satuan"],
+  },
+  kitchen: {
+    section_name: "kitchen",
+    item_list_jenis: ["makanan", "minuman", "bahan-dapur"],
+    item_list_laporan: ["sold out", "habis", "inventory"],
+    item_list_satuan: ["tray", "pack", "box"],
+  },
+};
+
+const data_send_testing = [];
+
+window.inventoryForm = (element, section) => {
   element.innerHTML = "";
-  if (arg.toLowerCase() == "hk") {
-    element.innerHTML += `<div class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm">
-          <h1 class="text-3xl text-center font-bold mb-3">Inventory HK</h1>
-          <input
-            type="text"
-            class="w-full p-2 bg-white"
-            placeholder="Nama item"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Jenis</option>
-          </select>
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Pilih laporan</option>
-          </select>
-          <input
-            type="number"
-            class="p-2 bg-white w-full"
-            placeholder="Jumlah"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Satuan</option>
-          </select>
-          <textarea
-            name=""
-            id=""
-            placeholder="extra comment"
-            class="w-full bg-white p-2 h-20 overflow-auto resize-none"
-          ></textarea>
-          <button class="w-[70%] bg-white p-2">Report</button>
-        </div>`;
-  } else if (arg.toLowerCase() == "kitchen") {
-    element.innerHTML += `<div class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm">
-          <h1 class="text-3xl text-center font-bold mb-3">Inventory Kitchen</h1>
-          <input
-            type="text"
-            class="w-full p-2 bg-white"
-            placeholder="Nama item"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Jenis</option>
-          </select>
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Pilih laporan</option>
-          </select>
-          <input
-            type="number"
-            class="p-2 bg-white w-full"
-            placeholder="Jumlah"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Satuan</option>
-          </select>
-          <textarea
-            name=""
-            id=""
-            placeholder="extra comment"
-            class="w-full bg-white p-2 h-20 overflow-auto resize-none"
-          ></textarea>
-          <button class="w-[70%] bg-white p-2">Report</button>
-        </div>`;
-  } else if (arg.toLowerCase() == "fo") {
-    element.innerHTML += `<div class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm">
-          <h1 class="text-3xl text-center font-bold mb-3">Inventory FO</h1>
-          <input
-            type="text"
-            class="w-full p-2 bg-white"
-            placeholder="Nama item"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Jenis</option>
-          </select>
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Pilih laporan</option>
-          </select>
-          <input
-            type="number"
-            class="p-2 bg-white w-full"
-            placeholder="Jumlah"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Satuan</option>
-          </select>
-          <textarea
-            name=""
-            id=""
-            placeholder="extra comment"
-            class="w-full bg-white p-2 h-20 overflow-auto resize-none"
-          ></textarea>
-          <button class="w-[70%] bg-white p-2">Report</button>
-        </div>`;
-  } else if (arg.toLowerCase() == "enginer") {
-    element.innerHTML += `<div class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm">
-          <h1 class="text-3xl text-center font-bold mb-3">Inventory Enginer</h1>
-          <input
-            type="text"
-            class="w-full p-2 bg-white"
-            placeholder="Nama item"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Jenis</option>
-          </select>
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Pilih laporan</option>
-          </select>
-          <input
-            type="number"
-            class="p-2 bg-white w-full"
-            placeholder="Jumlah"
-          />
-          <select name="" id="" class="w-full bg-white p-2">
-            <option value="" disabled selected>Satuan</option>
-          </select>
-          <textarea
-            name=""
-            id=""
-            placeholder="extra comment"
-            class="w-full bg-white p-2 h-20 overflow-auto resize-none"
-          ></textarea>
-          <button class="w-[70%] bg-white p-2">Report</button>
-        </div>`;
+  element.innerHTML = data_forms.section;
+  const title = document
+    .getElementById("form-inventory")
+    .querySelector("#title");
+
+  switch (section) {
+    case "hk":
+      title.textContent = `Inventory ${section.toUpperCase()}`;
+      break;
+    case "kitchen":
+      title.textContent = `Inventory ${section.toUpperCase()}`;
+      break;
+    case "fo":
+      title.textContent = `Inventory ${section.toUpperCase()}`;
+      break;
+    case "engine":
+      title.textContent = `Inventory ${section.toUpperCase()}`;
+      break;
   }
 };
+
+// inventory(document.getElementById("content"), "fo");
+const inventoryReport = (section) => {
+  inventoryForm(document.getElementById("content"), section);
+  renderList(document.getElementById("form-inventory"), section);
+};
+
+// render component item/list
+const renderList = (form, section) => {
+  const jenis_item = data_section_form[section].item_list_jenis;
+  const jenis_laporan = data_section_form[section].item_list_laporan;
+  const jenis_satuan = data_section_form[section].item_list_satuan;
+
+  jenis_item.forEach((item) => {
+    form.querySelector("select#item-jenis").innerHTML +=
+      `<option value="${item}">${item}</option>`;
+  });
+  jenis_laporan.forEach((item) => {
+    form.querySelector("select#item-report").innerHTML +=
+      `<option value="${item}">${item}</option>`;
+  });
+  jenis_satuan.forEach((item) => {
+    form.querySelector("select#item-satuan").innerHTML +=
+      `<option value="${item}">${item}</option>`;
+  });
+};
+
+// sendForm
+
+window.sendForm = () => {
+  const form = document.getElementById("form-inventory");
+  if (form.querySelector("#item-name").value == "") {
+    alert("name item gak boleh kosong");
+    return;
+  } else {
+    if (form.querySelector("#item-jenis").value == "") {
+      alert("jenis item gak boleh kosong");
+    } else {
+      if (form.querySelector("#item-report").value == "") {
+        alert("laporan gak boleh kosong");
+      } else {
+        if (form.querySelector("#item-jumlah").value == "") {
+          alert("jumlah item gak boleh kosong");
+        } else {
+          if (form.querySelector("#item-satuan").value == "") {
+            alert("satuan item gak boleh kosong");
+          } else {
+            data_send_testing.push({
+              name_item: form.querySelector("#item-name").value,
+              jenis_item: form.querySelector("#item-jenis").value,
+              report_item: form.querySelector("#item-report").value,
+              total_item: form.querySelector("#item-jumlah").value,
+              satuan_item: form.querySelector("#item-satuan").value,
+              extra_coment: form.querySelector("#item-extra-coment").value,
+            });
+            alert("berhasil menambahkan data");
+            console.log(data_send_testing);
+            form
+              .querySelectorAll("input, select, textarea")
+              .forEach((element) => {
+                element.value = "";
+              });
+          }
+        }
+      }
+    }
+  }
+};
+
+// auto runing funtion
+inventoryReport("hk");

@@ -8,21 +8,25 @@
   </head>
   <body>
     <div class="w-full h-screen bg-white flex justify-center">
-      <div class="w-[50%] bg-white p-2 fixed top-3">
+      <div class="w-[50%] bg-white p-2 fixed top-3 hidden">
         <ul class="w-full flex justify-around items-center cursor-pointer">
-          <li onclick="inventory(document.getElementById('content'), 'hk')">
+          <li onclick="inventoryForm(document.getElementById('content'), 'hk')">
             Housekeeping
           </li>
-          <li onclick="inventory(document.getElementById('content'), 'fo')">
+          <li onclick="inventoryForm(document.getElementById('content'), 'fo')">
             Front Office
           </li>
           <li
-            onclick="inventory(document.getElementById('content'), 'kitchen')"
+            onclick="
+              inventoryForm(document.getElementById('content'), 'kitchen')
+            "
           >
             Kitchen
           </li>
           <li
-            onclick="inventory(document.getElementById('content'), 'enginer')"
+            onclick="
+              inventoryForm(document.getElementById('content'), 'enginer')
+            "
           >
             Enginering
           </li>
