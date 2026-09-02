@@ -1,5 +1,5 @@
 import express from "express";
-import { getUser, getOrders } from "./routers.js";
+import { getUser, postOrders, getOrders, postInventory } from "./routers.js";
 import cors from "cors";
 
 const app = express();
@@ -9,6 +9,8 @@ app.use(cors());
 
 app.get("/users", getUser);
 app.get("/orders", getOrders);
+app.post("/orders", postOrders);
+app.post("/inventory", postInventory);
 
 app.listen(3000, () => {
   console.log("server berjalan");

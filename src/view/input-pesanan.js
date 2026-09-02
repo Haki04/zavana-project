@@ -19,6 +19,7 @@ window.data_item = [
 ];
 
 const data_list_order = [];
+const data_send = [];
 
 window.countOrderItem = (sign, e) => {
   const el = e.target.closest("#input_count");
@@ -111,7 +112,7 @@ window.showItems = (data) => {
                 <button onclick="countOrderItem('-', event)">▼</button>
               </div>
             </div>
-            <button data-name="Nasi goreng" class="w-[50%] bg-green-400 rounded cursor-pointer"  id="btn-add">
+            <button data-name="${d.name}" class="w-[50%] bg-green-400 rounded cursor-pointer"  id="btn-add">
               tambah
             </button>
           </div>
@@ -120,24 +121,42 @@ window.showItems = (data) => {
   });
 };
 
-window.sendOrder = () => {
-  if (data_list_order.length !== 0) {
-    data_list_order.forEach((item) =>
-      console.log(
-        `
-     name : ${item.name}
-     total : ${item.total}
-     `,
-      ),
-    );
-    alert("berhasil menambahkan");
+window.sendOrder = async () => {
+  const room_number = document.getElementById("room-number").value;
+  if (data_list_order.length == 0) {
+    alert("list orderan tidak boleh kosong");
   } else {
-    alert("gagal");
+    if (room_number == "") {
+      alert("room number tidak boleh kosong");
+    } else {
+      const date = new Date();
+      const uu_id = `KTN-${String(date.getHours()).padStart(2, `0`)}${String(date.getMinutes()).padStart(2, `0`)}${String(date.getSeconds()).padStart(2, `0`)}`;
+      data_send.push({
+        room: document.getElementById("room-number").value,
+        status: "order",
+        uu_id: uu_id,
+        items: [...data_list_order],
+      });
+      const results = await fetch(`http://localhost:3000/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data_send),
+      });
+      if (results.status) {
+        console.log(results);
+        alert("berhasil menambahkan");
+      } else {
+        alert("gagal");
+      }
+    }
   }
 };
 
 function showItemOrder(items, data) {
   let el = "";
+
   data.forEach((d, i) => {
     el += `
          <li class="flex justify-between">

@@ -1,8 +1,9 @@
 const data_forms = {
-  section: `  <div
+  form: `  <div
           class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm"
           id="form-inventory"
         >
+        <input type="text" id="item-id" class="" value="1">
           <h1 class="text-3xl text-center font-bold mb-3" id='title'></h1>
           <input
             id="item-name"
@@ -55,26 +56,29 @@ const data_section_form = {
   },
 };
 
-const data_send_testing = [];
+const data_send_orders = [];
 
 window.inventoryForm = (element, section) => {
   element.innerHTML = "";
-  element.innerHTML = data_forms.section;
+  element.innerHTML = data_forms.form;
   const title = document
     .getElementById("form-inventory")
     .querySelector("#title");
+  const item_id = document
+    .getElementById("form-inventory")
+    .querySelector("#item-id");
 
   switch (section) {
     case "hk":
       title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
-    case "kitchen":
+    case "ktn":
       title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
     case "fo":
       title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
-    case "engine":
+    case "eng":
       title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
   }
@@ -108,7 +112,7 @@ const renderList = (form, section) => {
 
 // sendForm
 
-window.sendForm = () => {
+window.sendForm = async () => {
   const form = document.getElementById("form-inventory");
   if (form.querySelector("#item-name").value == "") {
     alert("name item gak boleh kosong");
@@ -126,7 +130,7 @@ window.sendForm = () => {
           if (form.querySelector("#item-satuan").value == "") {
             alert("satuan item gak boleh kosong");
           } else {
-            data_send_testing.push({
+            data_send_orders.push({
               name_item: form.querySelector("#item-name").value,
               jenis_item: form.querySelector("#item-jenis").value,
               report_item: form.querySelector("#item-report").value,
@@ -134,8 +138,17 @@ window.sendForm = () => {
               satuan_item: form.querySelector("#item-satuan").value,
               extra_coment: form.querySelector("#item-extra-coment").value,
             });
-            alert("berhasil menambahkan data");
-            console.log(data_send_testing);
+            const result_post = await fetch(`http://localhost:3000/inventory`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data_send_orders),
+            });
+            if (result_post.message) {
+              alert(result_post.message);
+            } else {
+              alert("gagal");
+            }
+            console.log(data_send_orders);
             form
               .querySelectorAll("input, select, textarea")
               .forEach((element) => {
