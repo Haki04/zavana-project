@@ -21,7 +21,7 @@ export const postOrders = async (req, res) => {
     const [{ room, items, status, uu_id, place }] = req.body;
     await db.query(
       `INSERT INTO orders (uu_id, order_room, order_items, order_status, item_code, place_to_eat) VALUES (?,?,?,?,?,?)`,
-      [uu_id, room, JSON.stringify(items), status, "ktn", place],
+      [uu_id, room, JSON.stringify(items), status, "food", place],
     );
     res.status(201).json({
       success: 201,
@@ -66,8 +66,6 @@ export const updateOrders = async (req, res) => {
       "UPDATE orders SET order_status = ? WHERE uu_id = ?",
       [req.body.status, String(req.body.uu_id)],
     );
-
-    console.log(results);
 
     results.affectedRows > 0
       ? res.json({

@@ -4,12 +4,19 @@ const showOrdersItem = async (element, update) => {
   update ? (element.innerHTML = "") : "";
   data.data.map((item) => {
     let sign_orders = "bg-gray-300";
+    let sign_progres;
+
     switch (item.order_status) {
+      case "order":
+        sign_progres = "proses";
+        break;
       case "in proses":
         sign_orders = "bg-yellow-300";
+        sign_progres = "selesai ?";
         break;
-      case "selesai":
+      default:
         sign_orders = "bg-green-300";
+        sign_progres = "selesai";
     }
     element.innerHTML += `
  <div class="bg-white w-[150px] max-h-[300px] h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
@@ -27,7 +34,7 @@ const showOrdersItem = async (element, update) => {
               .join(``)}
               <li class="grid grid-cols-1 gap-1 mt-1 justify-items-center place-items-end h-full w-full">
                ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-0.5 rounded">${item.order_status}</span>` : ``}
-                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${item.order_status == `order` ? `proses` : item.order_status + `😁`}</button>
+                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${sign_progres} ${sign_progres == `selesai` ? `😁` : ``}</button>
               </li>
             </ul>
           </div>
@@ -39,8 +46,8 @@ const showOrdersItem = async (element, update) => {
 window.sendUpdate = async (id, el) => {
   let status_new = "";
 
-  switch (el.textContent) {
-    case "proses":
+  switch (el.getAttribute("data-action")) {
+    case "order":
       status_new = "in proses";
       break;
     default:

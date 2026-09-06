@@ -157,17 +157,14 @@ window.sendOrder = async () => {
           uu_id: uu_id,
           items: [...data_list_order],
         });
-        const results = await fetch(
-          `http://localhost:3000/users/orders/update`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data_send),
+        const results = await fetch(`http://localhost:3000/users/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        ).then((res) => res.json());
-        if (results.status == 201) {
+          body: JSON.stringify(data_send),
+        }).then((res) => res.json());
+        if (results.success == 201) {
           const set_elements = [
             ...document
               .getElementById("item-order-list")
