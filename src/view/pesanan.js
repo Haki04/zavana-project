@@ -1,6 +1,7 @@
 const showOrdersItem = async (element, update) => {
   const response = await fetch(`http://localhost:3000/users/orders`);
   const data = await response.json();
+  update ? (element.innerHTML = "") : "";
   data.data.map((item) => {
     let sign_orders = "bg-gray-300";
     switch (item.order_status) {
@@ -10,22 +11,23 @@ const showOrdersItem = async (element, update) => {
       case "selesai":
         sign_orders = "bg-green-300";
     }
-    update == true ? (element.innerHTML = "") : "";
     element.innerHTML += `
  <div class="bg-white w-[150px] max-h-[300px] h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
-          <div class="${sign_orders} w-full flex justify-center items-center h-[100px]">
+          <div class="${sign_orders} w-full flex justify-center items-center h-[40%]">
           <h1 class="font-bold text-5xl">${item.order_room}</h1>
           </div>
-          <div class="bg-green-200/20 w-full h-[150px]">
-            <ul class="flex flex-col items-center  p-1 h-full overflow-auto">
+          <div class="bg-green-200/20 w-full h-[60%]">
+            <ul class="flex flex-col items-center  p-1 h-full overflow-y-scroll">
             <span class="sticky top-0 bg-white text-center w-[50%] font-bold">${item.place_to_eat}</span>
               
             ${item.order_items
-              .map((d) => `<li class="text-1xl">${d.name} ${d.total}x</li>`)
+              .map(
+                (d) => `<li class="text-1xl w-full">${d.name} ${d.total}x</li>`,
+              )
               .join(``)}
-              <li class="grid grid-cols-1 gap-1 ${item.order_status == `selesai` ? `justify-items-end` : ``}">
+              <li class="grid grid-cols-1 gap-1 mt-1 justify-items-center place-items-end h-full w-full">
                ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-0.5 rounded">${item.order_status}</span>` : ``}
-                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${item.order_status == `order` ? `proses` : item.order_status}</button>
+                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${item.order_status == `order` ? `proses` : item.order_status + `😁`}</button>
               </li>
             </ul>
           </div>

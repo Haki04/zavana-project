@@ -40,7 +40,12 @@ export const postOrders = async (req, res) => {
 export const getOrders = async (req, res) => {
   try {
     const [results] = await db.query(
-      "SELECT order_room, order_items, order_status, uu_id, place_to_eat FROM orders",
+      `SELECT order_room, order_items, order_status, uu_id, place_to_eat FROM orders ORDER BY CASE
+      WHEN order_status = 'in proses' THEN 1
+      WHEN order_status = 'order' THEN 2  
+      WHEN order_status = 'selesai' THEN 3
+      ELSE 4
+      END`,
     );
 
     res.status(200).json({

@@ -19,6 +19,7 @@ window.data_item = [
 ];
 
 let data_list_order = [];
+
 const data_send = [];
 
 window.countOrderItem = (sign, e) => {
@@ -46,11 +47,25 @@ window.addListItem = (items, e, evnt) => {
       evnt.target.tagName === "BUTTON" &&
       name_item.getAttribute("data-name")
     ) {
-      data_list_order.push({
-        name: name_item.getAttribute("data-name"),
-        total: total.value,
-      });
+      const index = data_list_order.findIndex(
+        (item) => item.name === name_item.getAttribute("data-name"),
+      );
+      console.log(name_item.getAttribute("data-name"));
+      if (data_list_order.length > 0 || data_list_order == 0) {
+        if (index !== -1) {
+          data_list_order[index].total =
+            parseInt(data_list_order[index].total) + parseInt(total.value);
+          total.value = "0";
+        } else {
+          data_list_order.push({
+            name: name_item.getAttribute("data-name"),
+            total: total.value,
+          });
+          total.value = "0";
+        }
+      }
     }
+    console.log(data_list_order);
   } else {
     alert("pastikan mengisi total item yang di tambahkan ");
   }
