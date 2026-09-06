@@ -1,24 +1,31 @@
-import { pesanan_selesai } from "../controller/controller";
-
-const showOrdersItem = async (element) => {
-  const response = await fetch(`http://localhost:3000/orders`);
+const showOrdersItem = async (element, update) => {
+  const response = await fetch(`http://localhost:3000/users/orders`);
   const data = await response.json();
-  console.log(data);
-  data.map((item) => {
+  data.data.map((item) => {
+    let sign_orders = "bg-gray-300";
+    switch (item.order_status) {
+      case "in proses":
+        sign_orders = "bg-yellow-300";
+        break;
+      case "selesai":
+        sign_orders = "bg-green-300";
+    }
+    update == true ? (element.innerHTML = "") : "";
     element.innerHTML += `
- <div class="bg-white w-[150px] max-h-[250px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
-          <div class="bg-white w-full flex justify-center items-center h-[100px]">
+ <div class="bg-white w-[150px] max-h-[300px] h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
+          <div class="${sign_orders} w-full flex justify-center items-center h-[100px]">
           <h1 class="font-bold text-5xl">${item.order_room}</h1>
           </div>
           <div class="bg-green-200/20 w-full h-[150px]">
             <ul class="flex flex-col items-center  p-1 h-full overflow-auto">
+            <span class="sticky top-0 bg-white text-center w-[50%] font-bold">${item.place_to_eat}</span>
               
             ${item.order_items
               .map((d) => `<li class="text-1xl">${d.name} ${d.total}x</li>`)
               .join(``)}
-              <li class="grid grid-cols-1 gap-1">
-                <span class="bg-green-200 text-[14px] text-center p-0.5">${item.order_status}</span>
-                <button data-action="selesai" class="bg-gray-300  cursor-pointer text-[14px] p-2 rounded">proses</button>
+              <li class="grid grid-cols-1 gap-1 ${item.order_status == `selesai` ? `justify-items-end` : ``}">
+               ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-0.5 rounded">${item.order_status}</span>` : ``}
+                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${item.order_status == `order` ? `proses` : item.order_status}</button>
               </li>
             </ul>
           </div>
@@ -27,9 +34,35 @@ const showOrdersItem = async (element) => {
   });
 };
 
-showOrdersItem(document.getElementById("pesanan"));
+window.sendUpdate = async (id, el) => {
+  let status_new = "";
 
-document.getElementById("pesanan").addEventListener("click", (e) => {
-  const action = e.target.dataset.action;
-  pesanan_selesai(action);
-});
+  switch (el.textContent) {
+    case "proses":
+      status_new = "in proses";
+      break;
+    default:
+      status_new = "selesai";
+      break;
+  }
+
+  const results = await fetch(`http://localhost:3000/users/orders/update`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uu_id: id,
+      status: status_new,
+    }),
+  }).then((res) => res.json());
+
+  if (results.status == 201) {
+    let update = true;
+    showOrdersItem(document.getElementById("pesanan"), update);
+  } else {
+    alert(results.message);
+  }
+};
+
+showOrdersItem(document.getElementById("pesanan"));

@@ -18,7 +18,7 @@ window.data_item = [
   },
 ];
 
-const data_list_order = [];
+let data_list_order = [];
 const data_send = [];
 
 window.countOrderItem = (sign, e) => {
@@ -90,7 +90,7 @@ window.filterItems = (arg) => {
 
 window.showItems = (data) => {
   element.innerHTML = "";
-  data.forEach((d, i) => {
+  data.forEach((d) => {
     element.innerHTML += `
          <div
           class="w-[200px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden" 
@@ -123,32 +123,53 @@ window.showItems = (data) => {
 
 window.sendOrder = async () => {
   const room_number = document.getElementById("room-number").value;
+  const place_to_eat = document.getElementById("place-to-eat").value;
   if (data_list_order.length == 0) {
     alert("list orderan tidak boleh kosong");
   } else {
     if (room_number == "") {
       alert("room number tidak boleh kosong");
     } else {
-      const date = new Date();
-      const uu_id = `KTN-${String(date.getHours()).padStart(2, `0`)}${String(date.getMinutes()).padStart(2, `0`)}${String(date.getSeconds()).padStart(2, `0`)}`;
-      data_send.push({
-        room: document.getElementById("room-number").value,
-        status: "order",
-        uu_id: uu_id,
-        items: [...data_list_order],
-      });
-      const results = await fetch(`http://localhost:3000/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data_send),
-      });
-      if (results.status) {
-        console.log(results);
-        alert("berhasil menambahkan");
+      if (place_to_eat == "") {
+        alert("tempat makan tidak boleh kosong");
       } else {
-        alert("gagal");
+        const date = new Date();
+        const uu_id = `${String(date.getHours()).padStart(2, `0`)}${String(date.getMinutes()).padStart(2, `0`)}${String(date.getSeconds()).padStart(2, `0`)}`;
+        data_send.push({
+          room: room_number,
+          place: place_to_eat,
+          status: "order",
+          uu_id: uu_id,
+          items: [...data_list_order],
+        });
+        const results = await fetch(
+          `http://localhost:3000/users/orders/update`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data_send),
+          },
+        ).then((res) => res.json());
+        if (results.status == 201) {
+          const set_elements = [
+            ...document
+              .getElementById("item-order-list")
+              .querySelectorAll("select"),
+          ];
+          set_elements.forEach((element) => {
+            element.value = "";
+          });
+          showItemOrder(
+            document.getElementById("list-item-li"),
+            (data_list_order = []),
+          );
+
+          alert(results.message);
+        } else {
+          alert(results.message);
+        }
       }
     }
   }
@@ -172,11 +193,26 @@ function showItemOrder(items, data) {
   items.innerHTML = el;
 }
 
-function loopingSelect(rooms) {
-  for (let i = 101; i <= 120; i++) {
-    rooms.innerHTML += `<option value="${i}">${i}</option>`;
+function loopingSelect(data) {
+  if (data.rooms) {
+    for (let i = data.rooms; i <= 120; i++) {
+      data.content.innerHTML += `<option value="${i}">${i}</option>`;
+    }
+  } else {
+    data.data.map(
+      (place) =>
+        (data.content.innerHTML += `<option value="${place}">${place}</option>`),
+    );
   }
 }
 
-loopingSelect(document.getElementById("room-number"));
+loopingSelect({
+  content: document.getElementById("room-number"),
+  rooms: 101,
+});
+
+loopingSelect({
+  content: document.getElementById("place-to-eat"),
+  data: ["pool", "resto", "room"],
+});
 showItems(data_item);
