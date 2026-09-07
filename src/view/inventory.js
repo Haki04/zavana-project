@@ -3,7 +3,6 @@ const data_forms = {
           class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm"
           id="form-inventory"
         >
-        <input type="text" id="item-id" class="" value="1">
           <h1 class="text-3xl text-center font-bold mb-3" id='title'></h1>
           <input
             id="item-name"
@@ -46,7 +45,7 @@ const data_section_form = {
       "chemical",
     ],
     item_list_laporan: ["kerusakan", "inventory"],
-    item_list_satuan: ["pcs", "jerigen", "satuan"],
+    item_list_satuan: ["pcs", "pack", "jerigen", "satuan"],
   },
   kitchen: {
     section_name: "kitchen",
@@ -56,7 +55,7 @@ const data_section_form = {
   },
 };
 
-const data_send_orders = [];
+let data_send_orders = [];
 
 window.inventoryForm = (element, section) => {
   element.innerHTML = "";
@@ -137,18 +136,21 @@ window.sendForm = async () => {
               total_item: form.querySelector("#item-jumlah").value,
               satuan_item: form.querySelector("#item-satuan").value,
               extra_coment: form.querySelector("#item-extra-coment").value,
+              //owner : get(owner)
             });
             const result_post = await fetch(`http://localhost:3000/inventory`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data_send_orders),
-            });
-            if (result_post.message) {
+            }).then((item) => item.json());
+            if (result_post.status !== 500) {
+              data_send_orders = [];
+            }
+            if (result_post.status == 200) {
               alert(result_post.message);
             } else {
-              alert("gagal");
+              alert(result_post.message);
             }
-            console.log(data_send_orders);
             form
               .querySelectorAll("input, select, textarea")
               .forEach((element) => {

@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/users", getUser);
+app.post("/users/login", getUser);
 app.get("/users/orders", getOrders);
 app.post("/users/orders", postOrders);
 app.post("/users/orders/update", updateOrders);

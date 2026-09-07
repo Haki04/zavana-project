@@ -1,8 +1,14 @@
 import db from "./database.js";
 
+// users
 export const getUser = async (req, res) => {
   try {
-    const [results] = await db.query("SELECT * FROM users");
+    const { name } = req.body;
+    const [results] = await db.query(
+      "SELECT * FROM users WHERE user_name = ?",
+      [name],
+    );
+    console.log(results);
     res.json(results);
   } catch (error) {
     console.error("ERROR MYSQL:", error);
@@ -94,29 +100,51 @@ export const postInventory = async (req, res) => {
         extra_coment,
       },
     ] = req.body;
-    const [results] = await db.query(
-      `INSERT INTO inventory (name, type, reporting, total, satuan, coment) VALUES (?, ?, ?, ?, ?, ?)`,
-      [
-        name_item,
-        jenis_item,
-        report_item,
-        total_item,
-        satuan_item,
-        extra_coment,
-      ],
+
+    const [cek] = await db.query(
+      `SELECT name,total FROM inventory WHERE name = ?`,
+      [name_item],
     );
+    if (cek.length == 0) {
+      const [results] = await db.query(
+        `INSERT INTO inventory (name, type, reporting, total, satuan, coment) VALUES (?, ?, ?, ?, ?, ?)`,
+        [
+          name_item,
+          jenis_item,
+          report_item,
+          total_item,
+          satuan_item,
+          extra_coment,
+        ],
+      );
 
-    console.log(results);
-
-    if (results) {
-      res.status(201).json({
-        success: true,
-        message: "berhasil do inventory",
-      });
+      if (results) {
+        res.json({
+          status: 200,
+          message: "berhasil do inventory",
+        });
+      } else {
+        console.log("gagal");
+      }
     } else {
-      console.log("gagal");
+      const [total_old] = cek;
+      let total_new = parseInt(total_old.total) + parseInt(total_item);
+      const [results] = await db.query(
+        `UPDATE inventory SET total = ? WHERE name = ?`,
+        [total_new, name_item],
+      );
+
+      console.log(results);
+      if (results.affectedRows > 0) {
+        res.json({
+          status: 201,
+          message: "stock sudah diperbaharui",
+        });
+      }
     }
   } catch (error) {
-    console.log(error);
+    res.json({
+      status: 500,
+    });
   }
 };
