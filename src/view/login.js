@@ -1,9 +1,35 @@
 const section = ["hk", "ktn", "eng"];
 
-window.login = () => {};
+window.login = async () => {
+  const name = document.getElementById("user-name").value;
+  const password = document.getElementById("user-password").value;
+  if (name == "") {
+    alert("Name tidak boleh kosong");
+  } else {
+    if (password == "") {
+      alert("Password tidak boleh kosong");
+    } else {
+      const { verify, data } = await fetch(
+        "http://localhost:3000/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: name, password: password }),
+        },
+      ).then((res) => res.json());
+      if (verify) {
+        window.location.href = "/pages/users/profile";
+      } else {
+        console.log("gagal login");
+      }
+    }
+  }
+};
 
 const getAsUser = async (name) => {
-  const response = await fetch("http://localhost:3000/users/login", {
+  const response = await fetch("http://localhost:3000/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,12 +47,13 @@ window.cekUser = (name) => {
   clearTimeout(timer);
   timer = setTimeout(async () => {
     if (name !== "") {
-      const [user] = await getAsUser(name);
       const sebagai = document.getElementById("sebagai");
-      console.log(user);
+      const {
+        data: [{ position }],
+      } = await getAsUser(name);
       sebagai.innerHTML = "Sebagai : ";
       sebagai.innerHTML += `
-            <span class="font-bold bg-amber-300 px-10 rounded uppercase">${user.position}</span>`;
+            <span class="font-bold bg-amber-300 px-5 rounded uppercase">${position}</span>`;
     }
   }, 1000);
 };
