@@ -35,9 +35,9 @@ const getUser = async () => {
     ?.split("=")[1];
   const {
     data: [{ user_name, position, user_level }],
-  } = await fetch(`http://localhost:3000/users?name=${name}`).then((res) =>
-    res.json(),
-  );
+  } = await fetch(
+    `${import.meta.env.VITE_URL_FRONT_DEV}/users?name=${name}`,
+  ).then((res) => res.json());
   if (document.cookie) {
     showProfile(document.getElementById("content"), {
       name: user_name,

@@ -13,7 +13,7 @@ window.togglePopUp = (data) => {
 };
 
 const tampilkanSnack = (section) => {
-  fetch("http://localhost:3000/orders")
+  fetch(`${import.meta.env.VITE_URL_SERVER_DEV}/orders`)
     .then((response) => response.json())
     .then((data) => {
       data_orders.push(...data);

@@ -6,6 +6,7 @@ import {
   updateOrders,
   postInventory,
   loginUser,
+  getDataSection,
 } from "./routers.js";
 import cors from "cors";
 
@@ -17,9 +18,10 @@ app.use(cors());
 // get
 app.get("/users/orders", getOrders);
 app.get("/users", getUser);
+app.get("/inventory", getDataSection);
 
 //post
-app.post("/users/", getUser);
+app.post("/users", getUser);
 app.post("/inventory", postInventory);
 app.post("/users/login", loginUser);
 app.post("/users/orders", postOrders);

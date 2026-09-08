@@ -1,5 +1,3 @@
-const section = ["hk", "ktn", "eng"];
-
 window.login = async () => {
   const name = document.getElementById("user-name").value;
   const password = document.getElementById("user-password").value;
@@ -10,7 +8,7 @@ window.login = async () => {
       alert("Password tidak boleh kosong");
     } else {
       const { verify, data } = await fetch(
-        "http://localhost:3000/users/login",
+        `${import.meta.env.VITE_URL_SERVER_DEV}/users/login`,
         {
           method: "POST",
           headers: {
@@ -29,7 +27,7 @@ window.login = async () => {
 };
 
 const getAsUser = async (name) => {
-  const response = await fetch("http://localhost:3000/users", {
+  const response = await fetch(`${import.meta.env.VITE_URL_SERVER_DEV}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,3 +1,8 @@
+import { cekSession } from "../controller/controller";
+if (!cekSession()) {
+  window.location.href = "/pages/login";
+}
+
 const data_forms = {
   form: `  <div
           class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm"
@@ -37,23 +42,39 @@ const data_forms = {
 
 const data_section_form = {
   hk: {
-    section_name: "hk",
+    section_name: "ktn",
     item_list_jenis: [
-      "amenities",
-      "room-items",
-      "equipments-cleaning",
-      "chemical",
+      "sayuran",
+      "buah",
+      "frozen",
+      "cair",
+      "kering",
+      "bumbu-cair",
+      "bumbu-bubuk",
+      "bumbu-pasta",
     ],
-    item_list_laporan: ["kerusakan", "inventory"],
-    item_list_satuan: ["pcs", "pack", "jerigen", "satuan"],
-  },
-  kitchen: {
-    section_name: "kitchen",
-    item_list_jenis: ["makanan", "minuman", "bahan-dapur"],
-    item_list_laporan: ["sold out", "habis", "inventory"],
-    item_list_satuan: ["tray", "pack", "box"],
+    item_list_laporan: ["restock", "sold-out", "inventory"],
+    item_list_satuan: ["kg", "pcs", "pack", "trey", "duz", "satuan"],
   },
 };
+
+// console.log(
+//   JSON.stringify({
+//     section_name: "ktn",
+//     item_list_jenis: [
+//       "sayuran",
+//       "buah",
+//       "frozen",
+//       "cair",
+//       "kering",
+//       "bumbu-cair",
+//       "bumbu-bubuk",
+//       "bumbu-pasta",
+//     ],
+//     item_list_laporan: ["restock", "sold-out", "inventory"],
+//     item_list_satuan: ["kg", "pcs", "pack", "trey", "duz", "satuan"],
+//   }),
+// );
 
 let data_send_orders = [];
 
@@ -69,31 +90,37 @@ window.inventoryForm = (element, section) => {
 
   switch (section) {
     case "hk":
-      title.textContent = `Inventory ${section.toUpperCase()}`;
+      title.textContent = `Reporting ${section.toUpperCase()}`;
       break;
     case "ktn":
-      title.textContent = `Inventory ${section.toUpperCase()}`;
+      title.textContent = `Reporting ${section.toUpperCase()}`;
       break;
     case "fo":
-      title.textContent = `Inventory ${section.toUpperCase()}`;
+      title.textContent = `Reporting ${section.toUpperCase()}`;
       break;
     case "eng":
-      title.textContent = `Inventory ${section.toUpperCase()}`;
+      title.textContent = `Reporting ${section.toUpperCase()}`;
       break;
   }
 };
 
 // inventory(document.getElementById("content"), "fo");
-const inventoryReport = (section) => {
-  inventoryForm(document.getElementById("content"), section);
-  renderList(document.getElementById("form-inventory"), section);
+const inventoryReport = async () => {
+  const {
+    data: [{ section_name, section_data }],
+  } = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/inventory?section=${`hk`}`,
+  ).then((res) => res.json());
+
+  inventoryForm(document.getElementById("content"), section_name);
+  renderList(document.getElementById("form-inventory"), section_data);
 };
 
 // render component item/list
 const renderList = (form, section) => {
-  const jenis_item = data_section_form[section].item_list_jenis;
-  const jenis_laporan = data_section_form[section].item_list_laporan;
-  const jenis_satuan = data_section_form[section].item_list_satuan;
+  const jenis_item = section.item_list_jenis;
+  const jenis_laporan = section.item_list_laporan;
+  const jenis_satuan = section.item_list_satuan;
 
   jenis_item.forEach((item) => {
     form.querySelector("select#item-jenis").innerHTML +=
@@ -164,4 +191,4 @@ window.sendForm = async () => {
 };
 
 // auto runing funtion
-inventoryReport("hk");
+inventoryReport();

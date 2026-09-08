@@ -1,5 +1,7 @@
 const showOrdersItem = async (element, update) => {
-  const response = await fetch(`http://localhost:3000/users/orders`);
+  const response = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
+  );
   const data = await response.json();
   update ? (element.innerHTML = "") : "";
   data.data.map((item) => {
@@ -55,16 +57,19 @@ window.sendUpdate = async (id, el) => {
       break;
   }
 
-  const results = await fetch(`http://localhost:3000/users/orders/update`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const results = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders/update`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uu_id: id,
+        status: status_new,
+      }),
     },
-    body: JSON.stringify({
-      uu_id: id,
-      status: status_new,
-    }),
-  }).then((res) => res.json());
+  ).then((res) => res.json());
 
   if (results.status == 201) {
     let update = true;

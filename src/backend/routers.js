@@ -110,6 +110,17 @@ export const updateOrders = async (req, res) => {
 };
 
 // inventory
+export const getDataSection = async (req, res) => {
+  // console.log(req.query.section);
+  const [results] = await db.query(
+    `SELECT * FROM section WHERE section_name = ?`,
+    [req.query.section],
+  );
+
+  res.json({
+    data: results,
+  });
+};
 export const postInventory = async (req, res) => {
   try {
     const [
