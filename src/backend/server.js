@@ -8,6 +8,9 @@ import {
   loginUser,
   getDataSection,
   getStoks,
+  updateStocks,
+  postReport,
+  getReports,
 } from "./routers.js";
 import cors from "cors";
 
@@ -21,6 +24,7 @@ app.get("/users/orders", getOrders);
 app.get("/users", getUser);
 app.get("/inventory", getDataSection);
 app.get("/stocks", getStoks);
+app.get("/report", getReports);
 
 //post
 app.post("/users", getUser);
@@ -28,6 +32,8 @@ app.post("/inventory", postInventory);
 app.post("/users/login", loginUser);
 app.post("/users/orders", postOrders);
 app.post("/users/orders/update", updateOrders);
+app.post("/stocks", updateStocks);
+app.post("/report", postReport);
 
 app.listen(3000, () => {
   console.log("server berjalan");

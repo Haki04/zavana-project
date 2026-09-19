@@ -51,7 +51,7 @@ window.cekUser = (name) => {
       } = await getAsUser(name);
       sebagai.innerHTML = "Sebagai : ";
       sebagai.innerHTML += `
-            <span class="font-bold bg-amber-300 px-5 rounded uppercase">${position}</span>`;
+            <span class="font-bold bg-gray-100 px-5 rounded uppercase">${position}</span>`;
     }
   }, 1000);
 };

@@ -1,7 +1,5 @@
 import { plusMinus, toggleFormEdit } from "../controller/controller";
 
-window.toggleFormEdit = toggleFormEdit;
-window.plusMinus = plusMinus;
 const content_stocks = document.getElementById("content");
 
 const data = [
@@ -13,7 +11,7 @@ const data = [
   "pillow-case",
 ];
 
-const showFormEdit = (d) => {
+const showFormEdit = ({ name, id, total }) => {
   return `
    <div
       class="w-full h-screen fixed z-10 bg-w flex bg-white/50 justify-center items-center hidden"
@@ -26,7 +24,7 @@ const showFormEdit = (d) => {
         <h1 class="text-3xl text-center bg-gray-300 w-full">edit</h1>
         <input
           type="text"
-          value="${d.name}"
+          value="${name}"
           class="bg-white w-full pl-1 h-[35px]"
           disabled
         />
@@ -35,7 +33,7 @@ const showFormEdit = (d) => {
         >
           <input
             type="text"
-            value="${d.total}"
+            value="${total}"
             class="bg-white w-full pl-1"
             id="input-total"
           />
@@ -67,7 +65,12 @@ const showFormEdit = (d) => {
         <div class="flex justify-around gap-2 p-1">
           <button
             class="bg-green-200 w-[50%] p-2 rounded cursor-pointer hover:shadow"
-            onclick="sendUpdate(${d.id})"
+            onclick="sendUpdate(
+            {
+            id : '${id}',
+            total : document.getElementById('input-total').value
+            }
+            )"
           >
             simpan
           </button>
@@ -84,6 +87,7 @@ const showFormEdit = (d) => {
 };
 
 const showBoxStocks = (data) => {
+  content_stocks.innerHTML = "";
   data.map((item) => {
     content_stocks.innerHTML += `
     ${showFormEdit({ id: item.id, name: item.name, total: item.total })}
@@ -113,11 +117,33 @@ const getDataStocks = async () => {
   const { data } = await fetch(
     `${import.meta.env.VITE_URL_SERVER_DEV}/stocks?section=hk`,
   ).then((res) => res.json());
-  console.log(data);
 
   return data;
 };
 
-const sendUpdate = () => {};
+const sendUpdate = async (form_data) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/stocks`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form_data),
+    },
+  ).then((res) => res.json());
+
+  if (response.status == 201) {
+    alert(response.message);
+    toggleFormEdit();
+    showBoxStocks(await getDataStocks());
+  } else {
+    alert("Update gagal !");
+  }
+};
 
 showBoxStocks(await getDataStocks());
+
+window.toggleFormEdit = toggleFormEdit;
+window.plusMinus = plusMinus;
+window.sendUpdate = sendUpdate;

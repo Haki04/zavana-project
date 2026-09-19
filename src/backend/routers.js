@@ -201,14 +201,50 @@ export const getStoks = async (req, res) => {
 
 export const updateStocks = async (req, res) => {
   try {
-    console.log(req.query.id);
-    return;
-    const { name_item, total_item, uuid } = req.body;
-    const [results] = await db.query("UPDATE inventory SET ... VALUE ?", [
-      name_item,
-      total_item,
-      uuid,
-    ]);
+    const { id, total } = req.body;
+    const [results] = await db.query(
+      "UPDATE inventory SET total = ? WHERE id = ?",
+      [total, id],
+    );
+
+    if (results.affectedRows > 0) {
+      res.json({
+        status: 201,
+        message: "berhasil",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// reporting
+
+export const postReport = async (req, res) => {
+  try {
+    const { reporter, type, posisi, date, description } = req.body;
+    const [results] = await db.query(
+      "INSERT INTO reporting (posisi,reporter,status,date,description) VALUES (?,?,?,?,?)",
+      [posisi, reporter, "lapor", date, description],
+    );
+    if (results.status()) {
+      res.json({
+        status: 200,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getReports = async (req, res) => {
+  try {
+    const [results] = await db.query("SELECT * FROM reporting");
+
+    res.json({
+      status: 200,
+      data: results,
+    });
   } catch (error) {
     console.log(error);
   }

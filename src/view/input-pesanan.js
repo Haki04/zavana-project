@@ -1,6 +1,4 @@
-const element = document.getElementById("input-pesanan");
-
-window.data_item = [
+export const data_item = [
   {
     name: "nasi goreng",
     category: "lokal",
@@ -18,7 +16,7 @@ window.data_item = [
   },
 ];
 
-let data_list_order = [];
+export let data_list_order = [];
 
 const data_send = [];
 
@@ -75,6 +73,14 @@ window.addListItem = (items, e, evnt) => {
 window.btnToggle = (e) => {
   const div_lis_order = document.getElementById("item-order-list");
   const toggle = document.getElementById("toggle");
+  loopingSelect({
+    content: document.getElementById("room-number"),
+    rooms: 101,
+  });
+  loopingSelect({
+    content: document.getElementById("place-to-eat"),
+    data: ["pool", "resto", "room"],
+  });
 
   if (!toggle.checked) {
     div_lis_order.classList.remove("hidden");
@@ -103,18 +109,24 @@ window.filterItems = (arg) => {
   );
 };
 
-window.showItems = (data) => {
-  element.innerHTML = "";
-  data.forEach((d) => {
-    element.innerHTML += `
+export const showItems = (data) => {
+  try {
+    showSerchingBox();
+    const element = document.getElementById("input-pesanan");
+    if (!element) {
+      return;
+    }
+    element.innerHTML = "";
+    data.forEach((d) => {
+      element.innerHTML += `
          <div
-          class="w-[200px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden shadow-md" 
+          class="w-[300px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden shadow-md" 
         >
-          <div class="w-[40%] flex justify-center items-center">
+          <div class="w-[55%] flex justify-center items-center">
             <img class="w-[50px]" src="/icon/${d.img}" alt="" />
           </div>
           <div
-            class="w-[60%] bg-white h-full flex flex-col justify-center items-center gap-1" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
+            class="w-[45%] bg-white h-full flex flex-col justify-center items-center gap-1" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
           >
             <h1 class="text-1xl">${d.name}</h1>
             <div
@@ -133,10 +145,13 @@ window.showItems = (data) => {
           </div>
         </div>
         `;
-  });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-window.sendOrder = async () => {
+export const sendOrder = async () => {
   const room_number = document.getElementById("room-number").value;
   const place_to_eat = document.getElementById("place-to-eat").value;
   if (data_list_order.length == 0) {
@@ -190,11 +205,12 @@ window.sendOrder = async () => {
   }
 };
 
-function showItemOrder(items, data) {
-  let el = "";
+export const showItemOrder = (items, data) => {
+  try {
+    let el = "";
 
-  data.forEach((d, i) => {
-    el += `
+    data.forEach((d, i) => {
+      el += `
          <li class="flex justify-between">
                        ${d.name} - ${d.total}x
                         <span
@@ -204,30 +220,91 @@ function showItemOrder(items, data) {
                         >
                       </li>
         `;
-  });
-  items.innerHTML = el;
-}
-
-function loopingSelect(data) {
-  if (data.rooms) {
-    for (let i = data.rooms; i <= 120; i++) {
-      data.content.innerHTML += `<option value="${i}">${i}</option>`;
-    }
-  } else {
-    data.data.map(
-      (place) =>
-        (data.content.innerHTML += `<option value="${place}">${place}</option>`),
-    );
+    });
+    items.innerHTML = el;
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
-loopingSelect({
-  content: document.getElementById("room-number"),
-  rooms: 101,
-});
+export const showSerchingBox = () => {
+  let div = document.getElementById("content");
 
-loopingSelect({
-  content: document.getElementById("place-to-eat"),
-  data: ["pool", "resto", "room"],
-});
+  div.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <div
+        class="fixed top-2 right-2 bg-white/80 z-10 border flex flex-row gap-3 p-1"
+      >
+        <span
+          class="absolute -left-6 font-bold cursor-pointer"
+          onclick="btnToggle(this)"
+          >&lt;</span
+        >
+        <ul
+          class="flex flex-row items-center gap-3 [&>li]:cursor-pointer [&>li]:text-[14px]"
+        >
+          <li onclick="showItems(data_item)">All</li>
+          <li onclick="filterItems(this.textContent)">Lokal</li>
+          <li onclick="filterItems(this.textContent)">Eropa</li>
+        </ul>
+        <input
+          type="search"
+          name=""
+          id=""
+          onkeydown="filterItems(this.value)"
+          placeholder="Cari"
+          class="border p-0.5"
+        />
+        <div
+          class="absolute z-20 flex justify-center items-center right-0 top-10 hidden"
+          id="item-order-list"
+        >
+          <div
+            class="w-[300px] p-1 bg-gray-100 [&>*]:w-[70%] flex flex-col items-center gap-3 rounded"
+          >
+            <select name="" value="" id="room-number">
+              <option value="" disabled selected>Room</option>
+            </select>
+            <select name="" value="" id="place-to-eat">
+              <option value="" disabled selected>Place</option>
+            </select>
+            <ul
+              class="border h-[150px] bg-white p-1 overflow-auto"
+              id="list-item-li"
+            ></ul>
+            <button
+              onclick="sendOrder()"
+              class="p-1 mb-3 bg-green-300/50 border rounded cursor-pointer"
+            >
+              kirim order
+            </button>
+          </div>
+        </div>
+      </div>
+
+    `,
+  );
+};
+
+export const loopingSelect = (data) => {
+  try {
+    if (data.rooms) {
+      for (let i = data.rooms; i <= 120; i++) {
+        data.content.innerHTML += `<option value="${i}">${i}</option>`;
+      }
+    } else {
+      data.data.map(
+        (place) =>
+          (data.content.innerHTML += `<option value="${place}">${place}</option>`),
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 showItems(data_item);
+
+window.sendOrder = sendOrder;
+window.showItems = showItems;

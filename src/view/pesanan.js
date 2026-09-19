@@ -1,26 +1,30 @@
-const showOrdersItem = async (element, update) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
-  );
-  const data = await response.json();
-  update ? (element.innerHTML = "") : "";
-  data.data.map((item) => {
-    let sign_orders = "bg-gray-300";
-    let sign_progres;
-
-    switch (item.order_status) {
-      case "order":
-        sign_progres = "proses";
-        break;
-      case "in proses":
-        sign_orders = "bg-yellow-300/50";
-        sign_progres = "selesai ?";
-        break;
-      default:
-        sign_orders = "bg-green-300/50";
-        sign_progres = "selesai";
+export const showOrdersItem = async (element, update) => {
+  try {
+    if (!element) {
+      return;
     }
-    element.innerHTML += `
+    const response = await fetch(
+      `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
+    );
+    const data = await response.json();
+    update ? (element.innerHTML = "") : "";
+    data.data.map((item) => {
+      let sign_orders = "bg-gray-300";
+      let sign_progres;
+
+      switch (item.order_status) {
+        case "order":
+          sign_progres = "proses";
+          break;
+        case "in proses":
+          sign_orders = "bg-yellow-300/50";
+          sign_progres = "selesai ?";
+          break;
+        default:
+          sign_orders = "bg-green-300/50";
+          sign_progres = "selesai";
+      }
+      element.innerHTML += `
  <div class="bg-white w-[150px] max-h-[300px] h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
           <div class="${sign_orders} w-full flex justify-center items-center h-[40%]">
           <h1 class="font-bold text-5xl">${item.order_room}</h1>
@@ -42,10 +46,13 @@ const showOrdersItem = async (element, update) => {
           </div>
         </div>
 `;
-  });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-window.sendUpdate = async (id, el) => {
+export const sendUpdate = async (id, el) => {
   let status_new = "";
 
   switch (el.getAttribute("data-action")) {
@@ -78,5 +85,7 @@ window.sendUpdate = async (id, el) => {
     alert(results.message);
   }
 };
+
+window.sendUpdate = sendUpdate;
 
 showOrdersItem(document.getElementById("pesanan"));
