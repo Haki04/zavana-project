@@ -8,9 +8,9 @@
   </head>
   <body>
     <input type="checkbox" name="" id="toggle" class="hidden" />
-    <div class="w-full h-screen bg-amber-100 flex flex-col items-center p-2">
+    <div class="w-full h-screen bg-white flex flex-col items-center p-2">
       <div
-        class="fixed top-2 right-2 bg-white/50 z-10 border flex flex-row gap-3 p-1"
+        class="fixed top-2 right-2 bg-gray/50 z-10 border flex flex-row gap-3 p-1"
       >
         <span
           class="absolute -left-6 font-bold cursor-pointer"
@@ -33,11 +33,11 @@
           class="border p-0.5"
         />
         <div
-          class="absolute z-20 bg-white/70 flex justify-center items-center right-0 top-10 hidden"
+          class="absolute z-20 flex justify-center items-center right-0 top-10 hidden"
           id="item-order-list"
         >
           <div
-            class="w-[300px] p-1 bg-gray-300 [&>*]:w-[70%] flex flex-col items-center gap-3"
+            class="w-[300px] p-1 bg-gray-100 [&>*]:w-[70%] flex flex-col items-center gap-3 rounded"
           >
             <select name="" value="" id="room-number">
               <option value="" disabled selected>Room</option>
@@ -51,7 +51,7 @@
             ></ul>
             <button
               onclick="sendOrder()"
-              class="p-1 mb-3 bg-green-300 border rounded cursor-pointer"
+              class="p-1 mb-3 bg-green-300/50 border rounded cursor-pointer"
             >
               kirim order
             </button>

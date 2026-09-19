@@ -108,7 +108,7 @@ window.showItems = (data) => {
   data.forEach((d) => {
     element.innerHTML += `
          <div
-          class="w-[200px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden" 
+          class="w-[200px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden shadow-md" 
         >
           <div class="w-[40%] flex justify-center items-center">
             <img class="w-[50px]" src="/icon/${d.img}" alt="" />
@@ -120,7 +120,7 @@ window.showItems = (data) => {
             <div
               class="flex flex-row px-1 rounded border-2 items-center" 
             >
-              <input value="0" class="w-5 h-4" id="input"/>
+              <input value="0" class="w-5 h-4 focus:outline-0" id="input"/>
 
               <div class="flex flex-col [&>button]:text-[9px]">
                 <button onclick="countOrderItem('+', event)">▲</button>

@@ -7,27 +7,16 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <input class="hidden" type="checkbox" name="" id="toggle" />
+
     <div
-      class="w-full h-screen bg-green-300 overflow-hidden flex justify-center items-center"
+      class="w-full h-screen bg-white overflow-hidden flex justify-center items-center"
     >
       <div
-        class="w-[80%] h-[80%] p-1 rounded bg-white/50 overflow-y-scroll grid grid-cols-2 gap-1"
+        class="w-[95%] h-[95%] flex-wrap flex justify-center content-start gap-1"
         id="content"
-      >
-        <div class="w-[180px] h-[220px] bg-amber-300 rounded overflow-hidden">
-          <div class="w-full bg-white h-[50%] flex justify-center items-center">
-            <h1 class="text-2xl font-bold">Amenities</h1>
-          </div>
-          <div
-            class="w-full bg-gray-400 h-[50%] grid grid-rows-3 justify-items-start pl-1 [&>*]:p-1 [&>*]:rounded [&>*]:bg-yellow-200 [&>*]:h-[30px] gap-1 [&>*]:flex [&>*]:items-center[&>*]:justify-center [&>*]:w-[50%] place-items-center"
-          >
-            <span>Coffee </span>
-            <span>Tea</span>
-            <span>Sugar</span>
-          </div>
-        </div>
-      </div>
+      ></div>
     </div>
-    <script type="module" src="/src/view/hk.js"></script>
+    <script type="module" src="/src/view/view-section.js"></script>
   </body>
 </html>

@@ -13,11 +13,11 @@ const showOrdersItem = async (element, update) => {
         sign_progres = "proses";
         break;
       case "in proses":
-        sign_orders = "bg-yellow-300";
+        sign_orders = "bg-yellow-300/50";
         sign_progres = "selesai ?";
         break;
       default:
-        sign_orders = "bg-green-300";
+        sign_orders = "bg-green-300/50";
         sign_progres = "selesai";
     }
     element.innerHTML += `

@@ -2,10 +2,9 @@ import { cekSession } from "../controller/controller";
 if (!cekSession()) {
   window.location.href = "/pages/login";
 }
-
 const data_forms = {
   form: `  <div
-          class="w-[300px] bg-amber-400 p-1 [&>*]:mb-2 rounded shadow-sm"
+          class="w-[300px] bg-gray-200/70 p-1 [&>*]:mb-2 rounded shadow-sm [&_*]:focus:outline-gray-500"
           id="form-inventory"
         >
           <h1 class="text-3xl text-center font-bold mb-3" id='title'></h1>

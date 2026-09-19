@@ -181,3 +181,35 @@ export const postInventory = async (req, res) => {
     });
   }
 };
+
+// stoks
+
+export const getStoks = async (req, res) => {
+  try {
+    const [results] = await db.query(
+      "SELECT id,name,type,total,satuan FROM inventory WHERE section = ?",
+      [req.query.section],
+    );
+
+    res.json({
+      data: results,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateStocks = async (req, res) => {
+  try {
+    console.log(req.query.id);
+    return;
+    const { name_item, total_item, uuid } = req.body;
+    const [results] = await db.query("UPDATE inventory SET ... VALUE ?", [
+      name_item,
+      total_item,
+      uuid,
+    ]);
+  } catch (error) {
+    console.log(error);
+  }
+};
