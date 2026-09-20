@@ -1,5 +1,5 @@
-import { cekSession } from "../controller/controller";
-if (!cekSession()) {
+import { getCookie, backPages, animationSpin } from "../controller/controller";
+if (!getCookie()) {
   window.location.href = "/pages/login";
 }
 const data_forms = {
@@ -57,24 +57,6 @@ const data_section_form = {
   },
 };
 
-// console.log(
-//   JSON.stringify({
-//     section_name: "ktn",
-//     item_list_jenis: [
-//       "sayuran",
-//       "buah",
-//       "frozen",
-//       "cair",
-//       "kering",
-//       "bumbu-cair",
-//       "bumbu-bubuk",
-//       "bumbu-pasta",
-//     ],
-//     item_list_laporan: ["restock", "sold-out", "inventory"],
-//     item_list_satuan: ["kg", "pcs", "pack", "trey", "duz", "satuan"],
-//   }),
-// );
-
 let data_send_orders = [];
 
 window.inventoryForm = (element, section) => {
@@ -89,26 +71,33 @@ window.inventoryForm = (element, section) => {
 
   switch (section) {
     case "hk":
-      title.textContent = `Reporting ${section.toUpperCase()}`;
+      title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
     case "ktn":
-      title.textContent = `Reporting ${section.toUpperCase()}`;
+      title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
     case "fo":
-      title.textContent = `Reporting ${section.toUpperCase()}`;
+      title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
     case "eng":
-      title.textContent = `Reporting ${section.toUpperCase()}`;
+      title.textContent = `Inventory ${section.toUpperCase()}`;
       break;
   }
 };
 
 // inventory(document.getElementById("content"), "fo");
-const inventoryReport = async () => {
+export const inventoryReport = async (section) => {
+  if (!section) {
+    return;
+  }
+  animationSpin();
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin").remove();
+  }, 1000);
   const {
     data: [{ section_name, section_data }],
   } = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/inventory?section=${`hk`}`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/inventory?section=${section}`,
   ).then((res) => res.json());
 
   inventoryForm(document.getElementById("content"), section_name);
@@ -190,4 +179,5 @@ window.sendForm = async () => {
 };
 
 // auto runing funtion
-inventoryReport();
+backPages();
+inventoryReport(getCookie().position);

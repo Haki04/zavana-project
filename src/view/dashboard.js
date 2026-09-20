@@ -1,5 +1,7 @@
 import * as pesanan from "../view/pesanan.js";
 import * as input_pesanan from "../view/input-pesanan.js";
+import { inventoryReport } from "./inventory.js";
+import { animationSpin } from "../controller/controller.js";
 
 const dataSection = {
   dashboard: `
@@ -16,6 +18,8 @@ const dataSection = {
                     <option value="">All</option>
                     <option value="">Fixed</option>
                     <option value="">Not yet</option>
+                    <option value="">terlama</option>
+                    <option value="">terbaru</option>
                   </select>
                 </div>
               </div>
@@ -29,7 +33,7 @@ const dataSection = {
                 </ul>
               </div>
             </div>
-            <div class="w-full bg-slate-400 h-full p-1" id="kerusakan"></div>
+            <div class="w-full bg-slate-400 h-full p-1 overflow-y-scroll" id="kerusakan"></div>
           </div>
     `,
 };
@@ -71,22 +75,45 @@ const showStaffBoxs = (element) => {
 };
 
 const section = (a) => {
+  animationSpin();
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin").remove();
+  }, 1000);
+  document.querySelectorAll("#back-pages").forEach((item) => item.remove());
   const div = document.getElementById("content-right");
   if (a == "dashboard") {
     div.innerHTML = dataSection.dashboard;
     showStaffBoxs("staff");
     getDataBrokeness("kerusakan");
   } else if (a == "inventory") {
+    div.innerHTML = `
+     <div
+            class="w-full h-full flex flex-row justify-center gap-1 p-1 items-center"
+            id="content"
+          ></div>
+    `;
+    div.innerHTML += `
+    <div class="absolute top-[50%] translate-y-[-50%] left-0 bg-transparent ">
+      <ul class="p-1 [&>*]:border [&>*]:mt-1 [&>*]:cursor-pointer [&>*]:px-2 [&>*]:hover:bg-gray-300 [&>*]:text-center">
+      <li onclick="inventoryReport('hk')">HK</li>
+      <li onclick="inventoryReport('ktn')">KTN</li>
+      <li onclick="inventoryReport('fo')">FO</li>
+      <li onclick="inventoryReport('eng')">ENG</li>
+      </ul>
+    </div>
+    `;
+    window.inventoryReport = inventoryReport;
   } else if (a == "staff") {
-    document.getElementById("content-right").innerHTML = `
+    div.innerHTML = `
      <div
             class="w-full h-full bg-slate-300 flex flex-row justify-center gap-1 p-1"
             id="staff"
           ></div>
     `;
+
     showStaffBoxs("staff");
   } else if (a == "pesanan") {
-    document.getElementById("content-right").innerHTML = `
+    div.innerHTML = `
         <input type="checkbox" name="" id="toggle" class="hidden" />
     <div id="content" ></div>
       <div class="h-[50%] w-full bg-white flex flex-wrap overflow-y-scroll gap-1 justify-center p-1" id="input-pesanan"></div>
@@ -97,7 +124,7 @@ const section = (a) => {
     input_pesanan.showItems(input_pesanan.data_item);
     pesanan.showOrdersItem(document.getElementById("pesanan"));
   } else if (a == "kerusakan") {
-    document.getElementById("content-right").innerHTML = `
+    div.innerHTML = `
      <div class="bg-white h-full w-full flex flex-col justify-start">
             <div class="w-full bg-slate-300 h-[70px]">
               <div class="w-full flex justify-between bg-white">
@@ -107,6 +134,8 @@ const section = (a) => {
                     <option value="">All</option>
                     <option value="">Fixed</option>
                     <option value="">Not yet</option>
+                    <option value="">terlama</option>
+                    <option value="">terbaru</option>
                   </select>
                 </div>
               </div>
@@ -127,7 +156,9 @@ const section = (a) => {
   }
 };
 
+section("inventory");
 window.section = section;
+
 // section("dashboard");
 
 // dahsboard()

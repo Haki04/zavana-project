@@ -1,8 +1,14 @@
+import { animationSpin, backPages } from "../controller/controller";
+
 export const showOrdersItem = async (element, update) => {
   try {
     if (!element) {
       return;
     }
+    animationSpin();
+    setTimeout(() => {
+      document.querySelector("body").querySelector("#animate-spin").remove();
+    }, 1000);
     const response = await fetch(
       `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
     );
@@ -86,6 +92,7 @@ export const sendUpdate = async (id, el) => {
   }
 };
 
-window.sendUpdate = sendUpdate;
-
+backPages();
 showOrdersItem(document.getElementById("pesanan"));
+
+window.sendUpdate = sendUpdate;

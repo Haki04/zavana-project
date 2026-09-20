@@ -1,3 +1,5 @@
+import { animationSpin, backPages } from "../controller/controller";
+
 const content = document.getElementById("content");
 
 const cekValidForm = () => {
@@ -55,6 +57,10 @@ const sendReport = async () => {
 };
 
 const showFormReport = () => {
+  animationSpin();
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin").remove();
+  }, 1000);
   content.innerHTML = `
         <div
         class="w-[300px] bg-slate-400/50 shadow-md p-2 rounded flex flex-col justify-start items-center [&>*]:w-full [&>*]:bg-white [&>*]:p-2 [&>*]:rounded gap-1" id="form-report"
@@ -82,6 +88,7 @@ const showFormReport = () => {
   `;
 };
 
+backPages();
 showFormReport();
 
 window.sendReport = sendReport;

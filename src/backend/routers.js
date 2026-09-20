@@ -17,7 +17,7 @@ export const getUser = async (req, res) => {
   } catch (error) {
     console.error("ERROR MYSQL:", error);
 
-    res.status(500).json({
+    res.json({
       message: "Gagal mengambil data",
       error: error.message,
     });
@@ -27,14 +27,18 @@ export const getUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { name, password } = req.body;
   const [[results]] = await db.query(
-    "SELECT user_name, user_password,user_level FROM users WHERE user_name = ?",
+    "SELECT user_name, user_password,user_level,position FROM users WHERE user_name = ?",
     [name],
   );
 
   if (await bcrypt.compare(password, results.user_password)) {
     return res.json({
       verify: true,
-      data: results.user_name,
+      data: {
+        name: results.user_name,
+        level: results.user_level,
+        position: results.position,
+      },
     });
   } else {
     console.log("gagal login ");
@@ -227,7 +231,7 @@ export const postReport = async (req, res) => {
       "INSERT INTO reporting (posisi,reporter,status,date,description) VALUES (?,?,?,?,?)",
       [posisi, reporter, "lapor", date, description],
     );
-    if (results.status()) {
+    if (results) {
       res.json({
         status: 200,
       });

@@ -1,8 +1,18 @@
+import { animationSpin, backPages, getCookie } from "../controller/controller";
+
+if (!getCookie()) {
+  window.location.href = "/pages/login";
+}
+
 // show user
 const showProfile = (content, data_user) => {
+  animationSpin();
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin").remove();
+  }, 1000);
   content.innerHTML = `
     <div
-        class="w-[300px] p-2 bg-white/85 rounded shadow-md flex flex-col justify-start items-center flex-wrap gap-5"
+        class="w-[300px] p-2 bg-white/85 rounded-2xl shadow-md flex flex-col justify-start items-center flex-wrap gap-5"
       >
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/4/40/Bahlil_Lahadalia%2C_Menteri_ESDM_%282024%29.jpg?utm_source=id.wikipedia.org&utm_campaign=index&utm_content=original"
@@ -20,7 +30,7 @@ const showProfile = (content, data_user) => {
             As : <span class="uppercase font-bold">${data_user.level == 1 ? `Admin` : `Staff`}</span>
           </li>
         </ul>
-        <button class="border-2 bg-red-400 p-1 w-[30%] self-start ml-2 mb-2">
+        <button class="border-2 bg-red-400 p-1 w-[30%] self-start ml-2 mb-2 cursor-pointer" onclick="logOutUser()">
           Log Out
         </button>
       </div>
@@ -29,14 +39,12 @@ const showProfile = (content, data_user) => {
 
 // get user
 const getUser = async () => {
-  const cookies = document.cookie.split("; ");
-  const name = cookies
-    .find((cookie) => cookie.startsWith("name="))
-    ?.split("=")[1];
+  const data = getCookie();
+  if (!data) return;
   const {
     data: [{ user_name, position, user_level }],
   } = await fetch(
-    `${import.meta.env.VITE_URL_FRONT_DEV}/users?name=${name}`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/users?name=${data.name}`,
   ).then((res) => res.json());
   if (document.cookie) {
     showProfile(document.getElementById("content"), {
@@ -48,4 +56,15 @@ const getUser = async () => {
     window.location.href = "/pages/login";
   }
 };
+
+window.logOutUser = () => {
+  document.cookie.split(";").forEach((cookie) => {
+    const name = cookie.split("=")[0].trim();
+    document.cookie = `${name}=; max-age=0; path=/`;
+  });
+
+  return (window.location.href = "/pages/login");
+};
+
+backPages();
 getUser();

@@ -1,3 +1,9 @@
+import { makeCookie, getCookie } from "../controller/controller";
+
+if (getCookie()) {
+  window.location.href = "/pages/users/profile";
+}
+
 window.login = async () => {
   const name = document.getElementById("user-name").value;
   const password = document.getElementById("user-password").value;
@@ -18,6 +24,7 @@ window.login = async () => {
         },
       ).then((res) => res.json());
       if (verify) {
+        makeCookie(data);
         window.location.href = "/pages/users/profile";
       } else {
         console.log("gagal login");

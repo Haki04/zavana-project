@@ -1,3 +1,5 @@
+import { animationSpin, backPages } from "../controller/controller";
+
 export const data_item = [
   {
     name: "nasi goreng",
@@ -111,7 +113,13 @@ window.filterItems = (arg) => {
 
 export const showItems = (data) => {
   try {
-    showSerchingBox();
+    if (!document.getElementById("box-searching")) {
+      showSerchingBox();
+    }
+    animationSpin();
+    setTimeout(() => {
+      document.querySelector("body").querySelector("#animate-spin").remove();
+    }, 1000);
     const element = document.getElementById("input-pesanan");
     if (!element) {
       return;
@@ -234,7 +242,7 @@ export const showSerchingBox = () => {
     "afterbegin",
     `
     <div
-        class="fixed top-2 right-2 bg-white/80 z-10 border flex flex-row gap-3 p-1"
+        class="fixed top-2 right-2 bg-white/80 z-10 border flex flex-row gap-3 p-1" id="box-searching"
       >
         <span
           class="absolute -left-6 font-bold cursor-pointer"
@@ -250,11 +258,9 @@ export const showSerchingBox = () => {
         </ul>
         <input
           type="search"
-          name=""
-          id=""
           onkeydown="filterItems(this.value)"
           placeholder="Cari"
-          class="border p-0.5"
+          class="border p-0.5 w-[50px] md:w-auto"
         />
         <div
           class="absolute z-20 flex justify-center items-center right-0 top-10 hidden"
@@ -304,6 +310,7 @@ export const loopingSelect = (data) => {
   }
 };
 
+backPages();
 showItems(data_item);
 
 window.sendOrder = sendOrder;

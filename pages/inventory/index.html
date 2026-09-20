@@ -8,74 +8,10 @@
   </head>
   <body>
     <div class="w-full h-screen bg-gray-100 flex justify-center">
-      <!-- <div class="w-[50%] bg-white p-2 fixed top-3 hidden">
-        <ul class="w-full flex justify-around items-center cursor-pointer">
-          <li onclick="inventoryForm(document.getElementById('content'), 'hk')">
-            Housekeeping
-          </li>
-          <li onclick="inventoryForm(document.getElementById('content'), 'fo')">
-            Front Office
-          </li>
-          <li
-            onclick="
-              inventoryForm(document.getElementById('content'), 'kitchen')
-            "
-          >
-            Kitchen
-          </li>
-          <li
-            onclick="
-              inventoryForm(document.getElementById('content'), 'enginer')
-            "
-          >
-            Enginering
-          </li>
-        </ul>
-      </div> -->
       <div
         class="w-full max-w-[1200px] h-full flex justify-center items-center"
         id="content"
-      >
-        <div
-          class="w-[300px] p-1 [&>*]:mb-2 rounded shadow-sm flex flex-col justify-start items-center [&>*]:rounded"
-          id="form-inventory"
-        >
-          <h1 class="text-3xl text-center font-bold mb-3" id="title">Login</h1>
-          <input
-            id="item-name"
-            type="text"
-            class="w-[90%] p-2 bg-white"
-            placeholder="Nama item"
-          />
-          <select name="" id="item-jenis" class="w-[90%] bg-white p-2">
-            <option value="" disabled selected>Jenis</option>
-          </select>
-          <select name="" id="item-report" class="w-[90%] bg-white p-2">
-            <option value="" disabled selected>Pilih laporan</option>
-          </select>
-          <input
-            id="item-jumlah"
-            type="number"
-            class="p-2 bg-white w-[90%]"
-            placeholder="Jumlah"
-          />
-          <select name="" id="item-satuan" class="w-[90%] bg-white p-2">
-            <option value="" disabled selected>Satuan</option>
-          </select>
-          <textarea
-            name=""
-            id="item-extra-coment"
-            placeholder="extra comment"
-            class="w-[90%] bg-white p-2 h-20 overflow-auto resize-none"
-          ></textarea>
-          <button
-            class="w-[70%] mr-auto ml-4 bg-white p-2 cursor-pointer hover:shadow"
-            onclick="sendForm()"
-          >
-            Report
-          </button>
-        </div>
-      </div>
+      ></div>
     </div>
     <script></script>
     <script type="module" src="/src/view/inventory.js"></script>

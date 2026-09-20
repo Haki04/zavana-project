@@ -1,4 +1,8 @@
-import { plusMinus, toggleFormEdit } from "../controller/controller";
+import {
+  animationSpin,
+  plusMinus,
+  toggleFormEdit,
+} from "../controller/controller";
 
 const content_stocks = document.getElementById("content");
 
@@ -12,6 +16,10 @@ const data = [
 ];
 
 const showFormEdit = ({ name, id, total }) => {
+  animationSpin();
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin").remove();
+  }, 1000);
   return `
    <div
       class="w-full h-screen fixed z-10 bg-w flex bg-white/50 justify-center items-center hidden"
