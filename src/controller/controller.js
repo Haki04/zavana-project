@@ -84,11 +84,11 @@ export const plusMinus = (arg, total_old) => {
   }
 };
 
-export const animationSpin = () => {
-  document.querySelector("body").insertAdjacentHTML(
+export const animationSpin = (element) => {
+  document.querySelector(`#${element}`)?.insertAdjacentHTML(
     "afterbegin",
     `
-    <div class="fixed bg-gray-200 z-20 w-full h-screen flex justify-center md:items-center" id="animate-spin">
+    <div class="absolute bg-gray-200 z-20 w-full h-screen flex justify-center md:items-center" id="animate-spin">
       <span
         class="mt-[30%] md:mt-0 w-fit h-fit flex justify-center items-center flex-col bg-white rounded p-2"
         >
@@ -97,4 +97,9 @@ export const animationSpin = () => {
     </div>
     `,
   );
+};
+
+export const activeListHilight = (parent, el, bg_hilight) => {
+  parent?.querySelectorAll("li").forEach((e) => e.classList.remove(bg_hilight));
+  el.classList?.add(bg_hilight);
 };

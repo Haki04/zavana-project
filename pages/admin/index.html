@@ -20,13 +20,14 @@
           </div>
           <div class="h-[60%] bg-blue-200 w-full p-1">
             <ul
-              class="w-full h-full flex flex-col justify-center gap-7 [&>*]:p-1 [&>*]:border [&>*]:border-transparent [&>*]:hover:border-black [&>*]:hover:bg-yellow-100 [&>*]:rounded [&>*]:text-left [&>*]:cursor-pointer transition"
+              class="w-full h-full flex flex-col justify-center gap-7 [&>*]:p-1 [&>*]:border [&>*]:border-transparent [&>*]:hover:border-black [&>*]:hover:bg-yellow-50 [&>*]:rounded [&>*]:text-left [&>*]:cursor-pointer transition"
+              id="ul-dashboard"
             >
-              <li onclick="section('dashboard')">Dashboard</li>
-              <li onclick="section('inventory')">Inventory</li>
-              <li onclick="section('staff')">Staff</li>
-              <li onclick="section('pesanan')">Pesanan</li>
-              <li onclick="section('kerusakan')">Kerusakan</li>
+              <li onclick="section('dashboard', this)">Dashboard</li>
+              <li onclick="section('inventory', this)">Inventory</li>
+              <li onclick="section('staff', this)">Staff</li>
+              <li onclick="section('pesanan', this)">Pesanan</li>
+              <li onclick="section('kerusakan', this)">Kerusakan</li>
             </ul>
           </div>
           <div

@@ -1,4 +1,9 @@
-import { getCookie, backPages, animationSpin } from "../controller/controller";
+import {
+  getCookie,
+  backPages,
+  animationSpin,
+  activeListHilight,
+} from "../controller/controller";
 if (!getCookie()) {
   window.location.href = "/pages/login";
 }
@@ -86,14 +91,23 @@ window.inventoryForm = (element, section) => {
 };
 
 // inventory(document.getElementById("content"), "fo");
-export const inventoryReport = async (section) => {
+export const inventoryReport = async (section, el_this) => {
   if (!section) {
     return;
   }
-  animationSpin();
-  setTimeout(() => {
-    document.querySelector("body").querySelector("#animate-spin").remove();
-  }, 1000);
+  if (!getCookie().level == 1) {
+    animationSpin();
+    setTimeout(() => {
+      document.querySelector("body").querySelector("#animate-spin").remove();
+    }, 1000);
+  }
+
+  activeListHilight(
+    document.getElementById("ul-inventory-dashboard"),
+    el_this,
+    "bg-white",
+  );
+
   const {
     data: [{ section_name, section_data }],
   } = await fetch(
@@ -180,4 +194,4 @@ window.sendForm = async () => {
 
 // auto runing funtion
 backPages();
-inventoryReport(getCookie().position);
+inventoryReport(getCookie().position, "");

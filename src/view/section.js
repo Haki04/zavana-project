@@ -1,4 +1,8 @@
-import { animationSpin } from "../controller/controller";
+import { animationSpin, getCookie } from "../controller/controller";
+
+if (!getCookie()) {
+  window.location.href = "/pages/login";
+}
 
 const showUserSection = (element) => {
   animationSpin();

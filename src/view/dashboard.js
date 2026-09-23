@@ -1,7 +1,7 @@
 import * as pesanan from "../view/pesanan.js";
 import * as input_pesanan from "../view/input-pesanan.js";
 import { inventoryReport } from "./inventory.js";
-import { animationSpin } from "../controller/controller.js";
+import { animationSpin, activeListHilight } from "../controller/controller.js";
 
 const dataSection = {
   dashboard: `
@@ -74,10 +74,9 @@ const showStaffBoxs = (element) => {
   });
 };
 
-const section = (a) => {
-  animationSpin();
+const section = (a, el_this) => {
   setTimeout(() => {
-    document.querySelector("body").querySelector("#animate-spin").remove();
+    document.querySelector("body").querySelector("#animate-spin")?.remove();
   }, 1000);
   document.querySelectorAll("#back-pages").forEach((item) => item.remove());
   const div = document.getElementById("content-right");
@@ -85,6 +84,12 @@ const section = (a) => {
     div.innerHTML = dataSection.dashboard;
     showStaffBoxs("staff");
     getDataBrokeness("kerusakan");
+    animationSpin("content-right");
+    activeListHilight(
+      document.getElementById("ul-dashboard"),
+      el_this,
+      "bg-yellow-100",
+    );
   } else if (a == "inventory") {
     div.innerHTML = `
      <div
@@ -94,15 +99,21 @@ const section = (a) => {
     `;
     div.innerHTML += `
     <div class="absolute top-[50%] translate-y-[-50%] left-0 bg-transparent ">
-      <ul class="p-1 [&>*]:border [&>*]:mt-1 [&>*]:cursor-pointer [&>*]:px-2 [&>*]:hover:bg-gray-300 [&>*]:text-center">
-      <li onclick="inventoryReport('hk')">HK</li>
-      <li onclick="inventoryReport('ktn')">KTN</li>
-      <li onclick="inventoryReport('fo')">FO</li>
-      <li onclick="inventoryReport('eng')">ENG</li>
+      <ul class="p-1 [&>*]:border [&>*]:mt-1 [&>*]:cursor-pointer [&>*]:px-2 [&>*]:hover:bg-gray-50 [&>*]:text-center" id="ul-inventory-dashboard">
+      <li onclick="inventoryReport('hk', this)">HK</li>
+      <li onclick="inventoryReport('ktn', this)">KTN</li>
+      <li onclick="inventoryReport('fo', this)">FO</li>
+      <li onclick="inventoryReport('eng', this)">ENG</li>
       </ul>
     </div>
     `;
     window.inventoryReport = inventoryReport;
+    animationSpin("content-right");
+    activeListHilight(
+      document.getElementById("ul-dashboard"),
+      el_this,
+      "bg-yellow-100",
+    );
   } else if (a == "staff") {
     div.innerHTML = `
      <div
@@ -112,6 +123,12 @@ const section = (a) => {
     `;
 
     showStaffBoxs("staff");
+    animationSpin("content-right");
+    activeListHilight(
+      document.getElementById("ul-dashboard"),
+      el_this,
+      "bg-yellow-100",
+    );
   } else if (a == "pesanan") {
     div.innerHTML = `
         <input type="checkbox" name="" id="toggle" class="hidden" />
@@ -123,6 +140,12 @@ const section = (a) => {
 
     input_pesanan.showItems(input_pesanan.data_item);
     pesanan.showOrdersItem(document.getElementById("pesanan"));
+    animationSpin("content-right");
+    activeListHilight(
+      document.getElementById("ul-dashboard"),
+      el_this,
+      "bg-yellow-100",
+    );
   } else if (a == "kerusakan") {
     div.innerHTML = `
      <div class="bg-white h-full w-full flex flex-col justify-start">
@@ -153,10 +176,16 @@ const section = (a) => {
           </div>
     `;
     getDataBrokeness("kerusakan");
+    animationSpin("content-right");
+    activeListHilight(
+      document.getElementById("ul-dashboard"),
+      el_this,
+      "bg-yellow-100",
+    );
   }
 };
 
-section("inventory");
+section("inventory", "");
 window.section = section;
 
 // section("dashboard");

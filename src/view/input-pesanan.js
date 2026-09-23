@@ -238,7 +238,7 @@ export const showItemOrder = (items, data) => {
 export const showSerchingBox = () => {
   let div = document.getElementById("content");
 
-  div.insertAdjacentHTML(
+  div?.insertAdjacentHTML(
     "afterbegin",
     `
     <div
