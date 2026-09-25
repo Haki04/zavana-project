@@ -1,8 +1,8 @@
 export const backPages = () => {
   document.querySelector("body").insertAdjacentHTML(
     "afterbegin",
-    `<div class="fixed top-0 left-2 p-1" id="back-pages">
-      <span class="text-2xl cursor-pointer select-none" onclick="window.location.href='/pages/users/'">home</span>
+    `<div class="fixed top-7 left-7 md:left-5 md:top-5 p-1" id="back-pages">
+      <span class="cursor-pointer select-none" onclick="window.location.href='/pages/users/'"><img class="w-[20px]" src="/icon/home.png"></span>
     </div>`,
   );
 };
@@ -84,8 +84,18 @@ export const plusMinus = (arg, total_old) => {
   }
 };
 
-export const animationSpin = (element) => {
-  document.querySelector(`#${element}`)?.insertAdjacentHTML(
+export const animationSpin = (element, progres) => {
+  if (!element) return;
+  if (progres == "selesai") return;
+  element.innerHTML += `
+<div class="absolute w-full h-full flex justify-center items-center bg-white top-0 left-0">
+<img class="w-[30px] animate-spin" src="/icon/loading.png"/>
+</div>
+`;
+};
+
+export const animationLoading = (element) => {
+  document.querySelector(`#${element}`).insertAdjacentHTML(
     "afterbegin",
     `
     <div class="absolute bg-gray-200 z-20 w-full h-screen flex justify-center md:items-center" id="animate-spin">
@@ -97,9 +107,22 @@ export const animationSpin = (element) => {
     </div>
     `,
   );
+
+  setTimeout(() => {
+    document.querySelector("body").querySelector("#animate-spin")?.remove();
+  }, 1000);
 };
 
-export const activeListHilight = (parent, el, bg_hilight) => {
-  parent?.querySelectorAll("li").forEach((e) => e.classList.remove(bg_hilight));
-  el.classList?.add(bg_hilight);
+let count = 0;
+export const activeListHilight = (parent, el, bg_hilight = "bg-white") => {
+  if (!parent) return;
+  if (count == 0) {
+    document.getElementById("dash-board").classList.add(bg_hilight);
+    count++;
+  } else {
+    parent
+      ?.querySelectorAll("li")
+      .forEach((e) => e.classList.remove(bg_hilight));
+  }
+  el?.classList?.add(bg_hilight);
 };

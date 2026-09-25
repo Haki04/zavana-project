@@ -65,6 +65,7 @@ const data_section_form = {
 let data_send_orders = [];
 
 window.inventoryForm = (element, section) => {
+  if (!element) return;
   element.innerHTML = "";
   element.innerHTML = data_forms.form;
   const title = document
@@ -120,6 +121,7 @@ export const inventoryReport = async (section, el_this) => {
 
 // render component item/list
 const renderList = (form, section) => {
+  if (!form) return;
   const jenis_item = section.item_list_jenis;
   const jenis_laporan = section.item_list_laporan;
   const jenis_satuan = section.item_list_satuan;

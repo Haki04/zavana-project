@@ -1,4 +1,8 @@
-import { animationSpin, backPages, getCookie } from "../controller/controller";
+import {
+  animationLoading,
+  backPages,
+  getCookie,
+} from "../controller/controller";
 
 if (!getCookie()) {
   window.location.href = "/pages/login";
@@ -6,20 +10,17 @@ if (!getCookie()) {
 
 // show user
 const showProfile = (content, data_user) => {
-  animationSpin();
-  setTimeout(() => {
-    document.querySelector("body").querySelector("#animate-spin").remove();
-  }, 1000);
+  animationLoading("content");
   content.innerHTML = `
     <div
-        class="w-[300px] p-2 bg-white/85 rounded-2xl shadow-md flex flex-col justify-start items-center flex-wrap gap-5"
+        class="w-[250px] md:w-[300px] p-2 bg-white/85 rounded-2xl shadow-md flex flex-col justify-start items-center flex-wrap gap-5"
       >
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/4/40/Bahlil_Lahadalia%2C_Menteri_ESDM_%282024%29.jpg?utm_source=id.wikipedia.org&utm_campaign=index&utm_content=original"
           alt=""
           class="w-[200px] h-[200px] rounded-[50%] m-2 border-2"
         />
-        <ul class="w-full px-2">
+        <ul class="w-full px-1 md:px-2">
           <li class="p-2 border-2 mb-1 text-[20px]">
             Nama : <span class="uppercase font-bold">${data_user.name}</span>
           </li>
@@ -30,8 +31,8 @@ const showProfile = (content, data_user) => {
             As : <span class="uppercase font-bold">${data_user.level == 1 ? `Admin` : `Staff`}</span>
           </li>
         </ul>
-        <button class="border-2 bg-red-400 p-1 w-[30%] self-start ml-2 mb-2 cursor-pointer" onclick="logOutUser()">
-          Log Out
+        <button class="border-2 bg-orange-300 p-1 w-fitt flex items-center gap-2 self-start ml-2 mb-2 cursor-pointer" onclick="logOutUser()">
+          <img class="w-[10px] inline" src="/icon/logout.png"/> Log Out
         </button>
       </div>
     `;

@@ -128,26 +128,26 @@ export const showItems = (data) => {
     data.forEach((d) => {
       element.innerHTML += `
          <div
-          class="w-[300px] h-[120px] bg-gray-400 rounded flex justify-around items-center overflow-hidden shadow-md" 
+          class="w-[300px] h-[150px] bg-gray-400 rounded flex justify-around items-center overflow-hidden shadow-md" 
         >
-          <div class="w-[55%] flex justify-center items-center">
-            <img class="w-[50px]" src="/icon/${d.img}" alt="" />
+          <div class="w-[60%] flex justify-center items-center">
+            <img class="w-full" src="/image/soto.jpg" alt="" />
           </div>
           <div
-            class="w-[45%] bg-white h-full flex flex-col justify-center items-center gap-1" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
+            class="w-[40%] bg-white h-full flex flex-col justify-center items-center gap-2" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
           >
-            <h1 class="text-1xl">${d.name}</h1>
+            <h1 class="text-1xl font-bold capitalize">${d.name}</h1>
             <div
-              class="flex flex-row px-1 rounded border-2 items-center" 
+              class="flex flex-row px-1 rounded border-2 items-center w-[70%] md:w-[50%] h-[30%]" 
             >
-              <input value="0" class="w-5 h-4 focus:outline-0" id="input"/>
+              <input value="0" class="w-full h-4 focus:outline-0 text-[18px]" id="input"/>
 
-              <div class="flex flex-col [&>button]:text-[9px]">
+              <div class="flex flex-col [&>button]:text-[12px] [&>*]:cursor-pointer">
                 <button onclick="countOrderItem('+', event)">▲</button>
                 <button onclick="countOrderItem('-', event)">▼</button>
               </div>
             </div>
-            <button data-name="${d.name}" class="w-[50%] bg-green-400 rounded cursor-pointer"  id="btn-add">
+            <button data-name="${d.name}" class="w-[80%] mt-[10%] md:mt-0 py-[5%] md:py-[2%] bg-green-400 rounded cursor-pointer"  id="btn-add">
               tambah
             </button>
           </div>

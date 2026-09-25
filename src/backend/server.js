@@ -16,8 +16,8 @@ import cors from "cors";
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 // get
 app.get("/users/orders", getOrders);
@@ -25,7 +25,6 @@ app.get("/users", getUser);
 app.get("/inventory", getDataSection);
 app.get("/stocks", getStoks);
 app.get("/report", getReports);
-
 //post
 app.post("/users", getUser);
 app.post("/inventory", postInventory);

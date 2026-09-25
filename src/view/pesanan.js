@@ -1,19 +1,20 @@
-import { animationSpin, backPages } from "../controller/controller";
+import {
+  animationLoading,
+  animationSpin,
+  backPages,
+} from "../controller/controller";
 
-export const showOrdersItem = async (element, update) => {
+export const showOrdersItem = async (element) => {
   try {
     if (!element) {
       return;
     }
-    animationSpin();
-    setTimeout(() => {
-      document.querySelector("body").querySelector("#animate-spin").remove();
-    }, 1000);
+    animationLoading("pesanan");
     const response = await fetch(
       `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
     );
     const data = await response.json();
-    update ? (element.innerHTML = "") : "";
+    element.innerHTML = "";
     data.data.map((item) => {
       let sign_orders = "bg-gray-300";
       let sign_progres;
@@ -31,22 +32,20 @@ export const showOrdersItem = async (element, update) => {
           sign_progres = "selesai";
       }
       element.innerHTML += `
- <div class="bg-white w-[150px] max-h-[300px] h-[200px] rounded flex flex-col gap-1 overflow-hidden shadow-sm">
-          <div class="${sign_orders} w-full flex justify-center items-center h-[40%]">
-          <h1 class="font-bold text-5xl">${item.order_room}</h1>
+ <div class="bg-white w-[300px] h-[150px] md:w-[150px] md:h-[200px] rounded flex flex-row md:flex-col overflow-hidden shadow-sm">
+          <div class="${sign_orders} w-full flex justify-center items-center h-full md:h-[40%]">
+          <h1 class="font-bold text-6xl md:text-5xl">${item.order_room}</h1>
           </div>
-          <div class="bg-green-200/20 w-full h-[60%]">
-            <ul class="flex flex-col items-center  p-1 h-full overflow-y-scroll">
-            <span class="sticky top-0 bg-white text-center w-[50%] font-bold">${item.place_to_eat}</span>
+          <div class=" w-full h-full md:h-[60%]">
+            <ul class="flex flex-col items-center bg-white p-1 h-full overflow-y-scroll">
+            <span class="sticky top-0 bg-white/70 text-center w-[50%] font-bold w-full md:w-fit">${item.place_to_eat}</span>
               
             ${item.order_items
-              .map(
-                (d) => `<li class="text-1xl w-full">${d.name} ${d.total}x</li>`,
-              )
+              .map((d) => `<li class="w-full">${d.name} ${d.total}x</li>`)
               .join(``)}
               <li class="grid grid-cols-1 gap-1 mt-1 justify-items-center place-items-end h-full w-full">
-               ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-0.5 rounded">${item.order_status}</span>` : ``}
-                <button data-action="${item.order_status}" class="${sign_orders} cursor-pointer text-[14px] p-2 py-3 rounded" onclick="sendUpdate(${item.uu_id}, this)">${sign_progres} ${sign_progres == `selesai` ? `😁` : ``}</button>
+               ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-1 rounded">${item.order_status}</span>` : ``}
+                <button id="btn-pesanan" data-action="${item.order_status}" class="${sign_orders} w-[90%] md:w-[70%] relative overflow-hidden cursor-pointer text-[14px] p-2 py-2 rounded" onclick="sendUpdate(${item.uu_id},'${sign_progres}', this); this.addEventListenner('click', animationSpin(this, '${sign_progres}'))">${sign_progres} ${sign_progres == `selesai` ? `😁` : ``}</button>
               </li>
             </ul>
           </div>
@@ -58,7 +57,8 @@ export const showOrdersItem = async (element, update) => {
   }
 };
 
-export const sendUpdate = async (id, el) => {
+export const sendUpdate = async (id, progres, el) => {
+  if (progres == "selesai") return;
   let status_new = "";
 
   switch (el.getAttribute("data-action")) {
@@ -85,8 +85,7 @@ export const sendUpdate = async (id, el) => {
   ).then((res) => res.json());
 
   if (results.status == 201) {
-    let update = true;
-    showOrdersItem(document.getElementById("pesanan"), update);
+    showOrdersItem(document.getElementById("pesanan"));
   } else {
     alert(results.message);
   }
@@ -96,3 +95,4 @@ backPages();
 showOrdersItem(document.getElementById("pesanan"));
 
 window.sendUpdate = sendUpdate;
+window.animationLoading = animationLoading;

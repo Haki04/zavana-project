@@ -1,28 +1,31 @@
-import { animationSpin, getCookie } from "../controller/controller";
+import { animationLoading, getCookie } from "../controller/controller";
 
 if (!getCookie()) {
   window.location.href = "/pages/login";
 }
 
+const greating = (name) => {
+  document.getElementById("greating").innerHTML =
+    `<span>Welcome <span class="font-bold">${name.toUpperCase()}</span></span>`;
+};
+
 const showUserSection = (element) => {
-  animationSpin();
-  setTimeout(() => {
-    document.querySelector("body").querySelector("#animate-spin").remove();
-  }, 1000);
+  animationLoading("content-user");
   const section_list = [
-    "profile",
-    "pesanan",
-    "report",
-    "input-pesanan",
-    "inventory",
-    "report",
+    ["profile", "user_2.png"],
+    ["report", "report.png"],
+    ["inventory", "track.png"],
+    ["pesanan", "order.png"],
+    ["input-pesanan", "purchase_order.png"],
   ];
   section_list.map((item) => {
     element.innerHTML += `
      <div
-          class="w-[250px] shrink-0 h-[150px] bg-slate-400 rounded flex justify-center items-center cursor-pointer hover:scale-110 hover:my-2 transition" onclick="clickPages(this)"
+          class="w-[200px] md:w-[250px] md:h-[150px] shrink-0 h-[80px] bg-gray-200/50 rounded flex justify-center items-center cursor-pointer hover:scale-110 hover:my-2 transition gap-2 md:gap-4"
+          onclick="clickPages(this)"
         >
-          <h1 class="text-3xl">${item}</h1>
+          <img src="/icon/${item[1]}" alt="" class="w-[60px] md:w-[80px]" />
+          <h1 class="text-[20px] select-none">${item[0]}</h1>
         </div>
 `;
   });
@@ -42,4 +45,6 @@ window.clickPages = (args) => {
     return (window.location.href = "/pages/inventory/");
   }
 };
+
+greating(getCookie().name);
 showUserSection(document.getElementById("content-user"));

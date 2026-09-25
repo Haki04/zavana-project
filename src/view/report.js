@@ -63,7 +63,7 @@ const showFormReport = () => {
   }, 1000);
   content.innerHTML = `
         <div
-        class="w-[300px] bg-slate-400/50 shadow-md p-2 rounded flex flex-col justify-start items-center [&>*]:w-full [&>*]:bg-white [&>*]:p-2 [&>*]:rounded gap-1" id="form-report"
+        class="w-[300px] bg-gray-300/50 shadow-md p-2 rounded flex flex-col justify-start items-center [&>*]:w-full [&>*]:bg-white [&>*]:p-2 [&>*]:rounded gap-1" id="form-report"
       >
         <h1 class="font-bold text-2xl text-center">Report Kerusakan</h1>
         <input
