@@ -25,7 +25,11 @@ window.login = async () => {
       ).then((res) => res.json());
       if (verify) {
         makeCookie(data);
-        window.location.href = "/pages/users/profile";
+        if (data.level == 1) {
+          window.location.href = "/pages/admin/";
+        } else {
+          window.location.href = "/pages/users/profile";
+        }
       } else {
         console.log("gagal login");
       }

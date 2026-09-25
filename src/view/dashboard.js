@@ -83,6 +83,14 @@ const showStaffBoxs = (element) => {
 };
 
 const section = (a, el_this) => {
+  if (!document.getElementById("cek-exist")) {
+    document
+      .querySelector("body")
+      .insertAdjacentHTML(
+        "afterbegin",
+        '<div id="cek-exist" class="hidden">test</div>',
+      );
+  }
   activeListHilight();
   document.querySelectorAll("#back-pages").forEach((item) => item.remove());
   const div = document.getElementById("content-right");

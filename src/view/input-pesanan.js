@@ -1,4 +1,9 @@
-import { animationSpin, backPages } from "../controller/controller";
+import {
+  animationLoading,
+  animationSpin,
+  backPages,
+} from "../controller/controller";
+import { showOrdersItem } from "./pesanan";
 
 export const data_item = [
   {
@@ -20,7 +25,7 @@ export const data_item = [
 
 export let data_list_order = [];
 
-const data_send = [];
+let data_send = [];
 
 window.countOrderItem = (sign, e) => {
   const el = e.target.closest("#input_count");
@@ -50,7 +55,6 @@ window.addListItem = (items, e, evnt) => {
       const index = data_list_order.findIndex(
         (item) => item.name === name_item.getAttribute("data-name"),
       );
-      console.log(name_item.getAttribute("data-name"));
       if (data_list_order.length > 0 || data_list_order == 0) {
         if (index !== -1) {
           data_list_order[index].total =
@@ -65,7 +69,6 @@ window.addListItem = (items, e, evnt) => {
         }
       }
     }
-    console.log(data_list_order);
   } else {
     alert("pastikan mengisi total item yang di tambahkan ");
   }
@@ -73,16 +76,22 @@ window.addListItem = (items, e, evnt) => {
 };
 
 window.btnToggle = (e) => {
+  if (
+    document.getElementById("room-number").getAttribute("data-cek") !== "sudah"
+  ) {
+    loopingSelect({
+      content: document.getElementById("room-number"),
+      rooms: 101,
+    });
+    loopingSelect({
+      content: document.getElementById("place-to-eat"),
+      data: ["pool", "resto", "room"],
+    });
+  }
+
+  document.getElementById("room-number").setAttribute("data-cek", "sudah");
   const div_lis_order = document.getElementById("item-order-list");
   const toggle = document.getElementById("toggle");
-  loopingSelect({
-    content: document.getElementById("room-number"),
-    rooms: 101,
-  });
-  loopingSelect({
-    content: document.getElementById("place-to-eat"),
-    data: ["pool", "resto", "room"],
-  });
 
   if (!toggle.checked) {
     div_lis_order.classList.remove("hidden");
@@ -106,9 +115,6 @@ window.filterItems = (arg) => {
     ),
     500,
   );
-  console.log(
-    data_item.filter((item) => item.name.toLocaleLowerCase().startsWith(arg)),
-  );
 };
 
 export const showItems = (data) => {
@@ -116,10 +122,7 @@ export const showItems = (data) => {
     if (!document.getElementById("box-searching")) {
       showSerchingBox();
     }
-    animationSpin();
-    setTimeout(() => {
-      document.querySelector("body").querySelector("#animate-spin").remove();
-    }, 1000);
+    animationLoading("input-pesanan");
     const element = document.getElementById("input-pesanan");
     if (!element) {
       return;
@@ -190,7 +193,11 @@ export const sendOrder = async () => {
             body: JSON.stringify(data_send),
           },
         ).then((res) => res.json());
+        if (document.getElementById("cek-exist")) {
+          showOrdersItem(document.getElementById("pesanan"));
+        }
         if (results.success == 201) {
+          data_send = [];
           const set_elements = [
             ...document
               .getElementById("item-order-list")
@@ -269,7 +276,7 @@ export const showSerchingBox = () => {
           <div
             class="w-[300px] p-1 bg-gray-100 [&>*]:w-[70%] flex flex-col items-center gap-3 rounded"
           >
-            <select name="" value="" id="room-number">
+            <select name="" value="" id="room-number" data-cek='belum'>
               <option value="" disabled selected>Room</option>
             </select>
             <select name="" value="" id="place-to-eat">
@@ -280,8 +287,8 @@ export const showSerchingBox = () => {
               id="list-item-li"
             ></ul>
             <button
-              onclick="sendOrder()"
-              class="p-1 mb-3 bg-green-300/50 border rounded cursor-pointer"
+              onclick="sendOrder(); if (data_send.length !== 0) {animationSpin(this);}"
+              class="p-1 mb-3 bg-green-300/50 border rounded cursor-pointer relative overflow-hidden"
             >
               kirim order
             </button>
@@ -292,6 +299,12 @@ export const showSerchingBox = () => {
     `,
   );
 };
+
+// window.animationOn = () => {
+//   if (data.length !== 0) {
+//     animationSpin(element);
+//   }
+// };
 
 export const loopingSelect = (data) => {
   try {
@@ -313,5 +326,7 @@ export const loopingSelect = (data) => {
 backPages();
 showItems(data_item);
 
+window.data_send = data_send;
 window.sendOrder = sendOrder;
 window.showItems = showItems;
+window.animationLoading = animationLoading;

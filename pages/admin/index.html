@@ -15,54 +15,37 @@
         <div
           class="w-[20%] h-full flex flex-col justify-start items-center bg-white"
         >
-          <div class="h-[20%] bg-red-200 w-full">
-            <img src="" class="w-[80%] border-4 h-[80%]" alt="" />
+          <div
+            class="h-[20%] bg-red-200 w-full flex justify-center items-center"
+          >
+            <img
+              src="/image/soto.jpg"
+              class="w-[120px] border-4 rounded-2xl"
+              alt=""
+            />
           </div>
           <div class="h-[60%] bg-blue-200 w-full p-1">
             <ul
               class="w-full h-full flex flex-col justify-center gap-7 [&>*]:p-1 [&>*]:border [&>*]:border-transparent [&>*]:hover:border-black [&>*]:hover:bg-yellow-50 [&>*]:rounded [&>*]:text-left [&>*]:cursor-pointer transition"
               id="ul-dashboard"
             >
-              <li
-                onclick="
-                  this.addEventListener('click', section('dashboard', this))
-                "
-                id="dash-board"
-              >
+              <li onclick="section('dashboard', this)" id="dash-board">
                 Dashboard
               </li>
-              <li
-                onclick="
-                  this.addEventListener('click', section('inventory', this))
-                "
-              >
-                Inventory
-              </li>
-              <li
-                onclick="this.addEventListener('click', section('staff', this))"
-              >
-                Staff
-              </li>
-              <li
-                onclick="
-                  this.addEventListener('click', section('pesanan', this))
-                "
-              >
-                Pesanan
-              </li>
-              <li
-                onclick="
-                  this.addEventListener('click', section('kerusakan', this))
-                "
-              >
-                Kerusakan
-              </li>
+              <li onclick="section('inventory', this)">Inventory</li>
+              <li onclick="section('staff', this)">Staff</li>
+              <li onclick="section('pesanan', this)">Pesanan</li>
+              <li onclick="section('kerusakan', this)">Kerusakan</li>
             </ul>
           </div>
           <div
             class="h-[20%] bg-green-200 w-full flex justify-center flex-col items-center"
           >
-            <img src="" alt="" class="w-[50px] border-4 h-[50px]" />
+            <img
+              src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/si-pentol/sticker_2.png?689d1b78c9e23ca51a0102665fe8bce8&d=200x200"
+              alt=""
+              class="w-[50px] h-[50px]"
+            />
             <span class="font-bold text-[10px]">KIKI</span>
             <span class="font-bold text-[14px] p-1 bg-gray-50 rounded"
               >Log Out</span
