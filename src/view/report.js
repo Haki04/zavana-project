@@ -119,7 +119,6 @@ export const showFormReport = (content) => {
 };
 
 const renderSelectItems = (items) => {
-  console.log(document.getElementById("type-report"));
   items.map(
     (item) =>
       (document.getElementById("type-report").innerHTML +=
