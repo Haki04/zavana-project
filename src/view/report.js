@@ -34,7 +34,7 @@ const cekValidForm = (content) => {
           form_data.append("reporter", reporter);
           form_data.append("type", type);
           form_data.append("posisi", posisi);
-          form_data.append("image", image);
+          form_data.append("image", image ?? "");
           form_data.append(
             "date",
             `${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()}`,
@@ -70,9 +70,6 @@ const sendReport = async (content) => {
 };
 
 export const showFormReport = (content) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   getCookie().level == 1 ? (content = "content-right") : "";
   document.getElementById(content).insertAdjacentHTML(
     "afterbegin",
@@ -152,12 +149,8 @@ const cancelPreview = () => {
   preview.innerHTML = "preview....";
 };
 
-if (!getCookie().level == 1) {
-  backPages();
-  animationLoading("content");
-}
-
 window.sendReport = sendReport;
 window.showFormReport = showFormReport;
 window.previewImg = previewImg;
 window.cancelPreview = cancelPreview;
+window.getCookie = getCookie;

@@ -13,6 +13,15 @@
     ></div>
     <script>
       window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie() == 1) {
+          return (window.location.href = "/pages/admin");
+        }
+
+        backPages();
+        animationLoading("content");
         showFormReport("content");
       };
     </script>
