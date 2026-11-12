@@ -20,7 +20,6 @@ const editDelete = async (id, args, data = {}) => {
       body: JSON.stringify(data),
     },
   ).then((res) => res.json());
-
   if (status == 200) {
     alert(message);
     showItemBrokeness("kerusakan-item-list");
@@ -62,8 +61,8 @@ const validedKerusakanForm = async (parent, id) => {
       data_update[0].status != data_old[0].status ||
       data_update[0].date != data_old[0].date
     ) {
+      animationSpin(document.getElementById("btn-update"));
       await editDelete(id, "0", data_update);
-      animationSpin(document.getElementById("btn-form-edit-kerusakan"));
       data_update = [];
       data_old = [];
       parent
@@ -158,8 +157,8 @@ export const showFormEditKerusakan = async (id, parent) => {
                 placeholder="date"
               />
               <div class="w-full flex flex-row gap-1 relative" id="btn-form-edit-kerusakan">
-                <button
-                  class="w-[50%] p-2 bg-green-200 rounded my-3 cursor-pointer hover:shadow-sm"
+                <button id="btn-update"
+                  class="w-[50%] p-2 bg-green-200 rounded my-3 cursor-pointer hover:shadow-sm relative"
                   onclick="
                     validedKerusakanForm(
                       document.getElementById('form-edit-kerusakan'),

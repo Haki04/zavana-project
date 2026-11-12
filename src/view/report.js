@@ -49,6 +49,7 @@ const cekValidForm = (content) => {
 };
 
 const sendReport = async (content) => {
+  animationLoading("form-show-edit-kerusakan");
   const form_data = cekValidForm(content);
   const { status, message } = await fetch(
     `${import.meta.env.VITE_URL_SERVER_DEV}/api/report`,
@@ -154,3 +155,5 @@ window.showFormReport = showFormReport;
 window.previewImg = previewImg;
 window.cancelPreview = cancelPreview;
 window.getCookie = getCookie;
+window.backPages = backPages;
+window.animationLoading = animationLoading;

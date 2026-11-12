@@ -153,7 +153,7 @@ const section = async (a, el_this) => {
       <div class="h-[50%] w-full bg-white flex flex-wrap justify-around overflow-y-scroll p-1 gap-2" id="pesanan"></div>
       `;
 
-    input_pesanan.showItems(input_pesanan?.data_item);
+    input_pesanan.showItems();
     pesanan.showOrdersItem(document.getElementById("pesanan"));
     animationLoading("content-right");
     activeListHilight(

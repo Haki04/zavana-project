@@ -80,12 +80,13 @@ const getPurchasesItem = async (section, total) => {
   section = section ?? getCookie().position;
   total = !total ? 2 : total == "" ? 2 : total;
   const responses = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/purchases?section=${section}&total=${total}`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/purchases?section=${section}&total=${total}`,
   ).then((res) => res.json());
   if (responses.status == 200) return responses.data;
 };
 
 const fillterPurcahsesList = (el_this) => {
+  if (document.getElementById("select-purchase").value == "") return;
   animationSpin(
     document
       .getElementById("parent-content-purchase")
@@ -206,7 +207,7 @@ const sendPurchases = async () => {
   const data = insertDataTo_data_send();
   if (data[0].data.length == 0) return (data_send = []);
   const responses = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/purchases`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/purchases`,
     {
       method: "POST",
       headers: {
@@ -224,7 +225,7 @@ const sendPurchases = async () => {
 
 const deletePurchasing = async (id, el_this) => {
   const responses = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/purchases/delete?id=${id}`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/purchases/delete?id=${id}`,
   ).then((res) => res.json());
 
   if (responses.status == 200) {

@@ -166,7 +166,7 @@ export const animationSpin = (element, progres) => {
   if (!element) return;
   if (progres == "selesai") return;
   element.innerHTML += `
-<div class="absolute z-10 w-full h-full flex justify-center items-center bg-white top-0 left-0" id="animate-spin">
+<div class="absolute z-10 w-full h-full flex justify-center items-center top-0 left-0" id="animate-spin">
 <img class="w-[30px] animate-spin" src="/icon/loading.png"/>
 </div>
 `;
@@ -179,7 +179,7 @@ export const animationLoading = (element, layout = "after") => {
   document.querySelector(`#${element}`).insertAdjacentHTML(
     `${layout}begin`,
     `
-    <div class="absolute bg-gray-200 z-20 w-full h-screen flex justify-center md:items-center" id="animate-load">
+    <div class="absolute top-0 left-0 bg-white/60 z-20 w-full h-screen flex justify-center md:items-center" id="animate-load">
       <span
         class="mt-[30%] md:mt-0 w-fit h-fit flex justify-center items-center flex-col bg-white rounded p-2"
         >

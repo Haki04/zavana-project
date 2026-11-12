@@ -7,7 +7,7 @@ import {
 import { showOrdersItem } from "./pesanan";
 
 let data_list_order = [];
-export let data_item = [];
+let data_item = [];
 let data_send = [];
 
 window.countOrderItem = (sign, e) => {
@@ -112,13 +112,12 @@ window.filterItems = (arg) => {
 
 const getItems = async () => {
   const responses = await fetch(
-    `${import.meta.env.VITE_URL_SERVER_DEV}/items-sell`,
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/items-sell`,
   ).then((res) => res.json());
   return responses;
 };
-let count_input_pesanan_show = 0;
+
 export const showItems = async (d) => {
-  if (count_input_pesanan_show == 0) data_item = await getItems();
   let data = d ?? (await getItems());
   data.data ? (data = data.data) : "";
   if (!document.getElementById("box-searching")) {
@@ -159,10 +158,7 @@ export const showItems = async (d) => {
         `;
   });
   if (getCookie().level != 1) {
-    if (count_input_pesanan_show == 0) {
-      animationLoading("constent");
-      count_input_pesanan_show++;
-    }
+    animationLoading("content");
     backPages();
   }
 };
@@ -196,7 +192,7 @@ export const sendOrder = async (btn) => {
           items: JSON.stringify([...data_list_order]),
         });
         const results = await fetch(
-          `${import.meta.env.VITE_URL_SERVER_DEV}/users/orders`,
+          `${import.meta.env.VITE_URL_SERVER_DEV}/api/users/orders`,
           {
             method: "POST",
             headers: {
@@ -347,9 +343,6 @@ export const loopingSelect = (data) => {
   }
 };
 
-data_item = getItems();
-
-window.data_send = data_send;
 window.data_list_order = data_list_order;
 window.data_item = data_item;
 window.sendOrder = sendOrder;

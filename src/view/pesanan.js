@@ -5,8 +5,6 @@ import {
   getCookie,
 } from "../controller/controller";
 
-let count = 0;
-
 export const showOrdersItem = async (element) => {
   try {
     if (!element) {
@@ -54,8 +52,7 @@ export const showOrdersItem = async (element) => {
 `;
     });
     if (getCookie().level != 1) {
-      // if (count == 0) animationLoading("pesanan");
-      count++;
+      animationLoading("pesanan");
       backPages();
     }
   } catch (error) {
