@@ -118,9 +118,6 @@ const getItems = async () => {
 };
 let count_input_pesanan_show = 0;
 export const showItems = async (d) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   if (count_input_pesanan_show == 0) data_item = await getItems();
   let data = d ?? (await getItems());
   data.data ? (data = data.data) : "";
@@ -358,3 +355,4 @@ window.data_item = data_item;
 window.sendOrder = sendOrder;
 window.showItems = showItems;
 window.animationLoading = animationLoading;
+window.getCookie = getCookie;

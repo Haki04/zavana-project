@@ -7,10 +7,6 @@ import {
   activeListHilight,
 } from "../controller/controller";
 
-if (getCookie().level != 1) {
-  //animationLoading("content", "before");
-}
-
 const greatingUser = async () => {
   document.getElementById("greating-user").textContent =
     `Welcome ${getCookie().name} > ${getCookie().position}`;
@@ -44,8 +40,8 @@ const loopingListFillter = ({ data }) => {
 };
 
 export const showBoxStocks = async (section, el_this, filter_keyword) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
+  if (getCookie().level != 1) {
+    animationLoading("content", "before");
   }
   if (!section) return;
   activeListHilight(
@@ -160,3 +156,4 @@ window.getCookie = getCookie;
 window.greatingUser = greatingUser;
 window.fillterStocks = fillterStocks;
 window.showMoreDetailStocks = showMoreDetailStocks;
+window.getCookie = getCookie;

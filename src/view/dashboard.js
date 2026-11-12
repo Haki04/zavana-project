@@ -22,9 +22,6 @@ document.getElementById("tag-admin").innerHTML =
   `${getCookie().name} - ${getCookie().level == 1 ? `<span class="bg-amber-100 rounded inline-block px-3 uppercase">admin <span class="lowercase">lvl</span> ${getCookie().level}</span> ` : ``}`;
 
 const section = async (a, el_this) => {
-  if (getCookie().level != 1 || !getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   if (window.innerWidth < 600) {
     alert("tolong buka ditampilan desktop");
     return (document.querySelector("body").innerHTML =
@@ -362,3 +359,4 @@ window.showBoxStocks = showBoxStocks;
 window.inventoryReport = inventoryReport;
 window.logOutUser = logOutUser;
 window.editSectionDataInventory = editSectionDataInventory;
+window.getCookie = getCookie;

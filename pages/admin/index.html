@@ -70,7 +70,15 @@
       </div>
     </div>
     <script>
-      window.onload = () => section("dashboard", "");
+      window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level != 1) {
+          return (window.location.href = "/pages/users/profile.html");
+        }
+        section("dashboard", "");
+      };
     </script>
     <script type="module" src="/src/view/dashboard.js"></script>
   </body>

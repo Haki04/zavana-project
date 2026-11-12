@@ -2,9 +2,6 @@ import { animationSpin } from "../controller/controller";
 import { makeCookie, getCookie } from "../controller/controller";
 
 window.login = async () => {
-  if (getCookie()) {
-    return (window.location.href = "/pages/users/profile.html");
-  }
   animationSpin(document.getElementById("btn-login"));
   const name = document.getElementById("user-name").value;
   const password = document.getElementById("user-password").value;
@@ -71,3 +68,5 @@ window.cekUser = (name) => {
     }
   }, 1000);
 };
+
+window.getCookie = getCookie;

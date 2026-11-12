@@ -15,6 +15,12 @@
     </div>
     <script>
       window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
         showItemRooms();
         backPages();
       };

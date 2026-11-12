@@ -35,7 +35,15 @@
       </div>
     </div>
     <script>
-      window.onload = async () => showInformation("content-information");
+      window.onload = async () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
+        showInformation("content-information");
+      };
     </script>
     <script type="module" src="/src/view/information.js"></script>
   </body>

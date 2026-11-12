@@ -26,7 +26,6 @@ export default defineConfig({
         profile: resolve(__dirname, "pages/users/profile.html"),
         purchase: resolve(__dirname, "pages/users/purchase.html"),
         rooms: resolve(__dirname, "pages/users/rooms.html"),
-        "snacks-rooms": resolve(__dirname, "pages/users/snacks-room.html"),
         stocks: resolve(__dirname, "pages/users/stocks.html"),
       },
     },

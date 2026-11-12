@@ -43,7 +43,15 @@
       </div>
     </div>
     <script>
-      window.onload = () => getDataBrokeness("kerusakan", "kerusakan");
+      window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
+        getDataBrokeness("kerusakan", "kerusakan");
+      };
     </script>
     <script type="module" src="/src/view/kerusakan.js"></script>
   </body>

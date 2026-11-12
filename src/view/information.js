@@ -8,9 +8,6 @@ if (getCookie().level != 1) backPages();
 let data_form_information = [];
 
 export const showInformation = async (parent, data) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   data = data ?? (await getInformation());
   document.getElementById(parent).innerHTML = "";
   data.map((item) => {
@@ -193,3 +190,4 @@ window.addInformation = addInformation;
 window.cekValidation = cekValidation;
 window.updateInformation = updateInformation;
 window.deleteInformation = deleteInformation;
+window.getCookie = getCookie;

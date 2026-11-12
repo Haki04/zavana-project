@@ -38,6 +38,15 @@
         </div>
       </div>
     </div>
+    <script>
+      window.onload = () => {
+        if (getCookie()) {
+          if (getCookie().level == 1)
+            return (window.location.href = "/pages/admin/");
+        }
+        // return (window.location.href = "/pages/users/profile");
+      };
+    </script>
     <script type="module" src="/src/view/login.js"></script>
   </body>
 </html>

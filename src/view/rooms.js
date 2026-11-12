@@ -4,9 +4,6 @@ let data_send = [];
 let data_item;
 
 export const showItemRooms = async () => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   data_item = await getRoomItems();
   if (data_item.data.length == 0)
     return document.getElementById("content-rooms").insertAdjacentHTML(
@@ -343,3 +340,4 @@ window.showFormAddEditSnackItems = showFormAddEditSnackItems;
 window.toggleUndisabledInputFormEditMoreItems =
   toggleUndisabledInputFormEditMoreItems;
 window.fillterItemMoreDetail = fillterItemMoreDetail;
+window.getCookie = getCookie;

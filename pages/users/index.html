@@ -20,6 +20,18 @@
         ></div>
       </div>
     </div>
+    <script>
+      window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
+        greating(getCookie().name);
+        showUserSection(document.getElementById("content-user"));
+      };
+    </script>
     <script type="module" src="/src/view/section.js"></script>
   </body>
 </html>

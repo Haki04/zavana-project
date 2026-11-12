@@ -12,9 +12,6 @@ let data_select_items;
 let data_form_item_new = data_section_for_admin;
 
 window.inventoryForm = async (element, section) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   if (!element) return;
 
   const { data } = await fetch(

@@ -12,7 +12,15 @@
       id="content"
     ></div>
     <script>
-      window.onload = () => getUser();
+      window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
+        getUser();
+      };
     </script>
     <script type="module" src="/src/view/profile.js"></script>
   </body>

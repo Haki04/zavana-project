@@ -14,7 +14,15 @@
       ></div>
     </div>
     <script>
-      window.onload = () => showOrdersItem(document.getElementById("pesanan"));
+      window.onload = () => {
+        if (!getCookie()) {
+          return (window.location.href = "/pages/login.html");
+        }
+        if (getCookie().level == 1) {
+          return (window.location.href = "/pages/admin/");
+        }
+        showOrdersItem(document.getElementById("pesanan"));
+      };
     </script>
     <script type="module" src="/src/view/pesanan.js"></script>
   </body>

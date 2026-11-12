@@ -6,9 +6,6 @@ const greating = (name) => {
 };
 
 const showUserSection = (element) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   animationLoading("content-user");
   const section_list = [
     ["profile", "user_2.png"],
@@ -60,5 +57,6 @@ window.clickPages = (args) => {
   }
 };
 
-greating(getCookie().name);
-showUserSection(document.getElementById("content-user"));
+window.getCookie = getCookie;
+window.greating = greating;
+window.showUserSection = showUserSection;
