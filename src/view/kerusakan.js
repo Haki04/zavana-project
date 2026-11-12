@@ -261,8 +261,7 @@ export const detailKerusakan = async (id) => {
           </span>
           <div class="w-full bg-white p-2">
             <ul class="w-full min-w-0 p-2 flex flex-row gap-2 overflow-x-scroll" id="ul-images-kerusakan">
-              ${item.gambar ? `<li class="shrink-0"><img src="${import.meta.env.VITE_URL_SERVER_DEV}/reports/${item.gambar}" class="w-[200px] border-2 aspect-video shadow rounded"/></li>` : ``}
-              
+              ${item.gambar ? `<li class="shrink-0"><img src="${import.meta.env.VITE_URL_FRONT_DEV}/reports/${item.gambar}" class="w-[200px] border-2 aspect-video shadow rounded"/></li>` : ``}
             </ul>
             <div class="w-full p-1 flex justify-center gap-3 [&>*]:cursor-pointer items-center">
               <img onclick="scrollInfo(-1)" src="/icon/arrow.png" class="w-[20px] -rotate-180"/>
