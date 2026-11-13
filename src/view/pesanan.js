@@ -20,6 +20,7 @@ export const showOrdersItem = async (element) => {
       let sign_progres;
       switch (item.order_status) {
         case "order":
+          sign_orders = "bg-gray-300/50";
           sign_progres = "proses";
           break;
         case "in proses":
@@ -43,7 +44,7 @@ export const showOrdersItem = async (element) => {
               .map((d) => `<li class="w-full">${d.name} ${d.total}x</li>`)
               .join(``)}
               <li class="grid grid-cols-1 mt-1 justify-items-center place-items-end h-fit w-full gap-2">
-               ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="bg-yellow-200 text-[14px] text-center p-1 rounded">${item.order_status}</span>` : ``}
+               ${item.order_status == `order` || item.order_status == `in proses` ? ` <span class="${sign_orders} text-[14px] text-center p-1 rounded">${item.order_status}</span>` : ``}
                 <button id="btn-pesanan" data-action="${item.order_status}" class="${sign_orders} w-[90%] md:w-[70%] relative overflow-hidden cursor-pointer text-[14px] p-2 rounded" onclick="sendUpdatePesanan(${item.uu_id},'${sign_progres}', this); animationSpin(this, '${sign_progres}')">${sign_progres} ${sign_progres == `selesai` ? `😁` : ``}</button>
               </li>
             </ul>
@@ -111,7 +112,7 @@ const showMoresComentDetail = async (uu_id) => {
   ).then((res) => res.json());
   document.querySelector("#pesanan").innerHTML += `
   <div
-          class="w-full h-full ${getCookie().level != 1 ? `fixed top-0` : `absolute top-0 left-0`} z-10 bg-white/50 flex justify-center items-center"
+          class="w-full h-full ${getCookie().level != 1 ? `fixed top-0` : `absolute top-0 left-0`} z-10 bg-white/50 flex justify-center items-center "
         id="box-detail-pesanan">
           <div
             class="w-[70%] md:w-[300px] bg-white flex flex-col justify-around shadow rounded p-4"
@@ -124,7 +125,7 @@ const showMoresComentDetail = async (uu_id) => {
                   >${data[0].order_room}</span
                 ></span
               >
-              <span class="p-1 border-b relative" >code : <span class="font-bold">${data[0].order_code}</span><span class="absolute right-0 top-0 cursor-pointer w-fit h-full flex justify-center items-center gap-2" ><img onclick="copyClipboard(this.parentElement.parentElement)" class="w-4" src="/icon/copy.png"/><img id="visit-link-tamu" onclick="window.location.href='/pages/tamu/'" class="w-4 hidden" src="/icon/link.png"/></span></span>
+              <span class="p-1 border-b relative" >code : <span class="font-bold">${data[0].order_code}</span><span class="absolute right-0 top-0 cursor-pointer w-fit h-full flex justify-center items-center gap-2" ><img onclick="copyClipboard(this.parentElement.parentElement)" class="w-4" src="/icon/copy.png"/><img id="visit-link-tamu" onclick="tamuOrderList()" class="w-4 hidden" src="/icon/link.png"/></span></span>
               <span class="p-1 border-b"
                 >type : <span class="font-bold capitalize">${data[0].order_type}</span></span
               >
@@ -155,6 +156,17 @@ const showMoresComentDetail = async (uu_id) => {
   `;
 };
 
+const tamuOrderList = async () => {
+  if (getCookie().level != 1) return window.open("/pages/tamu/", "_blank");
+  document.getElementById("content-right").insertAdjacentHTML(
+    "afterbegin",
+    `<div class="absolute top-0 left-0 z-20 bg-white/80 overflow-hidden flex justify-center items-center w-full h-full" id="content-tamu-dashboard">
+      <iframe src="/pages/tamu/index.html" class="w-full h-full"></iframe>
+      <button class="p-2 bg-red-100 absolute top-2 right-2" onclick="this.parentElement.remove()">close</button>
+    </div>`,
+  );
+};
+
 window.sendUpdatePesanan = sendUpdatePesanan;
 window.animationLoading = animationLoading;
 window.animationSpin = animationSpin;
@@ -162,3 +174,4 @@ window.showOrdersItem = showOrdersItem;
 window.copyClipboard = copyClipboard;
 window.showMoresComentDetail = showMoresComentDetail;
 window.getCookie = getCookie;
+window.tamuOrderList = tamuOrderList;

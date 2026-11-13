@@ -12,13 +12,16 @@ let data_send = [];
 
 window.countOrderItem = (sign, e) => {
   const el = e.target.closest("#input_count");
-  const total_old = document.getElementById("item-left").textContent;
+  const total_old = document.getElementById("item-left");
   const input = el.querySelector("input");
+  if (parseInt(total_old.textContent) == 0) return;
   if (sign == "+") {
-    if (parseInt(total_old) <= parseInt(input.value))
+    if (parseInt(total_old.textContent) < parseInt(input.value))
       return alert("stock mencapai batas");
+    total_old.textContent--;
     input.value++;
   } else if (sign == "-" && input.value > 0) {
+    total_old.textContent++;
     input.value--;
   }
 };
@@ -131,14 +134,16 @@ export const showItems = async (d) => {
   data.forEach((d) => {
     element.innerHTML += `
          <div
-          class="w-[300px] h-[150px] rounded flex justify-around items-center overflow-hidden shadow-md" 
+          class="w-[300px] h-[150px] rounded flex justify-around items-center overflow-hidden shadow-md relative" 
         >
+         ${parseInt(d.total) == 0 ? `<div class="absolute flex justify-center items-center top-0 left-0 w-full h-full bg-red-200/50"><span class="inline-block p-2 rounded bg-white/70">sold out</span></div>` : ``}
           <div class="w-[60%] flex justify-center items-center">
             <img class="w-full" src="/image/soto.jpg" alt="" />
           </div>
           <div
-            class="w-[40%] bg-white h-full flex flex-col justify-center items-center gap-2" id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
+            class="w-[40%] bg-white h-full flex flex-col justify-center items-center gap-2 " id="input_count"  onclick="addListItem(document.getElementById('list-item-li'), this, event)"
           >
+         
             <h1 class="text-1xl font-bold capitalize">${d.name} (<span id="item-left">${d.total}</span>)</h1>
             <div
               class="flex flex-row px-1 rounded border-2 items-center w-[70%] md:w-[50%] h-[30%]" 
@@ -235,9 +240,6 @@ export const sendOrder = async (btn) => {
 };
 
 export const showItemOrder = (items, data) => {
-  if (!getCookie()) {
-    return (window.location.href = "/pages/login.html");
-  }
   try {
     let el = "";
 

@@ -1,6 +1,6 @@
 import { animationSpin } from "../controller/controller";
 
-const getOrdersTamu = async () => {
+export const getOrdersTamu = async (parent) => {
   const input = document.getElementById("order-code-tamu");
   if (input.value == "") {
     alert("input tidak boleh kosong");

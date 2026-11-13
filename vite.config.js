@@ -18,6 +18,7 @@ export default defineConfig({
         dashboard: resolve(__dirname, "pages/admin/index.html"),
         inventory: resolve(__dirname, "pages/inventory/index.html"),
         report: resolve(__dirname, "pages/report/index.html"),
+        tamu: resolve(__dirname, "pages/tamu/index.html"),
         user: resolve(__dirname, "pages/users/index.html"),
         information: resolve(__dirname, "pages/users/information.html"),
         "input-pesanan": resolve(__dirname, "pages/users/input-pesanan.html"),

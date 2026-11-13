@@ -86,17 +86,16 @@ const getPurchasesItem = async (section, total) => {
 };
 
 const fillterPurcahsesList = (el_this) => {
-  if (document.getElementById("select-purchase").value == "") return;
+  const form = el_this.parentElement;
+  if (form.querySelector("select").value == "") {
+    form.querySelector("select").focus();
+    return alert("section tidak boleh kosong");
+  }
   animationSpin(
     document
       .getElementById("parent-content-purchase")
       .querySelector("#content-purchases"),
   );
-  const form = el_this.parentElement;
-  if (form.querySelector("select").value == "") {
-    form.querySelector("select").focus();
-    return;
-  }
   showPurchasesItem(
     "content-purchases",
     form.querySelector("select").value,
@@ -111,7 +110,7 @@ const addItemPurchase = (parent, data) => {
   document.getElementById(parent).innerHTML += `
 
 <div
-            class="w-full max-[400px]:w-[60%] max-[400px]:flex-col max-[400px]:*:w-full p-1 h-fit bg-white [&>*]:flex-1 flex  items-center [&>*]:text-center [&>*:not(input):not(div)]:bg-blue-100 gap-1 rounded [&>*]:p-2 relative id="list-purchases"
+            class="w-full max-[400px]:w-[60%] max-[400px]:flex-col max-[400px]:*:w-full p-1 h-fit bg-white [&>*]:flex-1 flex  items-center [&>*]:text-center [&>*:not(input):not(div)]:bg-blue-100 gap-1 rounded [&>*]:p-2 relative" id="list-purchases"
           >
           <div class="absolute -left-1 gap-1 -top-1 *:flex-1 justify-between *:w-fit *:pl-1 h-full max-w-0 flex flex-col *:flex *:justify-center *:items-center min-[400px]:hidden">
             <span>section</span>
@@ -144,7 +143,9 @@ const addItemPurchase = (parent, data) => {
 
 const formInputItem = async () => {
   const form = document.getElementById("parent-content-purchase");
-  form.innerHTML += `
+  form.insertAdjacentHTML(
+    "afterbegin",
+    `
   <div class="absolute z-10 w-full h-full top-0 bg-white/50 flex justify-center items-center">
     <div class="w-[300px] h-fit p-2 bg-white shadow flex flex-col items-center gap-2 [&>*:not(h1):not(div)]:shadow rounded" id="form-input-purchase">
       <h1 class="text-2xl capitalize">add item</h1>
@@ -165,7 +166,8 @@ const formInputItem = async () => {
     </div>
   </div>
   
-  `;
+  `,
+  );
   const {
     data: [{ section_data }],
   } = await getItemSelectType();
@@ -204,6 +206,16 @@ const validationPurchases = (el_this) => {
 };
 
 const sendPurchases = async () => {
+  if (document.getElementById("select-purchase").value == "") {
+    document.getElementById("select-purchase").focus();
+    return alert("data section tidak boleh kosong");
+  }
+  if (!document.querySelector("#list-purchases")) {
+    document
+      .getElementById("span-kosong-sign")
+      .classList.add("shadow-md", "shadow-red-200");
+    return alert("data send tidak boleh kosong");
+  }
   const data = insertDataTo_data_send();
   if (data[0].data.length == 0) return (data_send = []);
   const responses = await fetch(
@@ -236,9 +248,7 @@ const deletePurchasing = async (id, el_this) => {
 
 const insertDataTo_data_send = () => {
   data_send.push({
-    section:
-      document.getElementById("select-purchase").value.toLowerCase() ??
-      getCookie().position,
+    section: document.getElementById("select-purchase").value,
     data: [],
     reporter: getCookie().name,
   });
@@ -249,6 +259,7 @@ const insertDataTo_data_send = () => {
       .querySelectorAll("#list-purchases"),
   ].map((item) => {
     const items = item.querySelectorAll(":scope > span");
+    console.log(items);
     data_send[0].data.push({
       name_item: items[1].textContent,
       total_store: items[2].textContent,
