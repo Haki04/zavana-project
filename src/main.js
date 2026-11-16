@@ -15,3 +15,4 @@ import "./view/section.js";
 import "./view/staff.js";
 import "./view/stocks.js";
 import "./view/tamu.js";
+import "./view/index.js";
