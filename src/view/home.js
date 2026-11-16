@@ -31,6 +31,7 @@ const changeDescription = (params, paragraph) => {
   } else if (params == "developer") {
     printSosialMedia(paragraph);
   } else {
+    if (getCookie()) params.textContent = "Profile";
     paragraph.innerHTML = "";
     getCookie()
       ? (window.location.href = "/pages/users/profile.html")
