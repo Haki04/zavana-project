@@ -1,3 +1,5 @@
+import { getCookie } from "../controller/controller.js";
+
 const about =
   "project ini dibuat untuk memudahkan para staff zavana room untuk melakukan inventory maupun hal sejenisnya";
 const developer = [{ dev: "kiki" }];
@@ -29,7 +31,10 @@ const changeDescription = (params, paragraph) => {
   } else if (params == "developer") {
     printSosialMedia(paragraph);
   } else {
-    window.open("/pages/login.html", "_self");
+    paragraph.innerHTML = "";
+    getCookie()
+      ? window.open("/pages/users/profile.html")
+      : window.open("/pages/login.html", "_self");
   }
 };
 
