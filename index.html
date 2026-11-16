@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link rel="icon" type="image/png" href="/icon/letter-z.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -11,8 +12,20 @@
       class="w-full h-screen bg-gray-200/50 flex justify-center items-center"
     >
       <div
-        class="w-[50%] max-w-[500px] h-fit min-h-0 flex justify-center items-center"
-      ></div>
+        class="w-[50%] max-w-[500px] bg-white h-fit min-h-0 flex-col flex justify-center items-center gap-2 shadow p-4"
+      >
+        <h1 class="text-2xl capitalize">zavana project</h1>
+        <p id="description"></p>
+        <ul
+          class="w-[450px] flex *:flex-1 *:p-2 *:cursor-pointer *:text-center gap-2 *:rounded *:shadow"
+          id="ul-index-pages"
+        >
+          <li onclick="hilightUl(this)" class="bg-white">Login</li>
+          <li onclick="hilightUl(this)" class="bg-white">About</li>
+          <li onclick="hilightUl(this)" class="bg-white">Developer</li>
+        </ul>
+      </div>
     </div>
+    <script type="module" src="/src/view/index.js"></script>
   </body>
 </html>
