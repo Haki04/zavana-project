@@ -33,8 +33,8 @@ const changeDescription = (params, paragraph) => {
   } else {
     paragraph.innerHTML = "";
     getCookie()
-      ? window.open("/pages/users/profile.html")
-      : window.open("/pages/login.html", "_self");
+      ? (window.location.href = "/pages/users/profile.html")
+      : (window.location.href = "/pages/login.html");
   }
 };
 
