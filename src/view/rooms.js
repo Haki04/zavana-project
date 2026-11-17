@@ -1,4 +1,4 @@
-import { backPages, getCookie } from "../controller/controller";
+import { backPages, getCookie, animationSpin } from "../controller/controller";
 
 let data_send = [];
 let data_item;
@@ -341,3 +341,4 @@ window.toggleUndisabledInputFormEditMoreItems =
   toggleUndisabledInputFormEditMoreItems;
 window.fillterItemMoreDetail = fillterItemMoreDetail;
 window.getCookie = getCookie;
+window.animationSpin = animationSpin;

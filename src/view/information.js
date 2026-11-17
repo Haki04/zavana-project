@@ -2,6 +2,7 @@ import {
   activeListHilight,
   backPages,
   getCookie,
+  animationLoading,
 } from "../controller/controller";
 if (getCookie().level != 1) backPages();
 
@@ -191,3 +192,4 @@ window.cekValidation = cekValidation;
 window.updateInformation = updateInformation;
 window.deleteInformation = deleteInformation;
 window.getCookie = getCookie;
+window.animationLoading = animationLoading;

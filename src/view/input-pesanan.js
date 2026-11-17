@@ -122,6 +122,7 @@ const getItems = async () => {
 
 export const showItems = async (d) => {
   let data = d ?? (await getItems());
+  data_item.length == 0 ? (data_item = await getItems()) : "";
   data.data ? (data = data.data) : "";
   if (!document.getElementById("box-searching")) {
     showSerchingBox();
@@ -162,10 +163,6 @@ export const showItems = async (d) => {
         </div>
         `;
   });
-  if (getCookie().level != 1) {
-    animationLoading("content");
-    backPages();
-  }
 };
 
 export const sendOrder = async (btn) => {
@@ -276,7 +273,7 @@ export const showSerchingBox = () => {
           ><span id="count-order-item">0</span><img src="/icon/order.png"  class="w-[20px] inline-block"/></span
         >
         <ul
-          class="flex flex-row items-center gap-3 [&>li]:cursor-pointer [&>li]:text-[14px]"
+          class="flex flex-row items-center gap-3 [&>li]:cursor-pointer [&>li]:text-[14px] hidden"
         >
           <li data-set="showItems(data_item)" onclick="alert('progres')">All</li>
           <li onclick="filterItems(this.textContent)">Lokal</li>
@@ -351,3 +348,5 @@ window.sendOrder = sendOrder;
 window.showItems = showItems;
 window.animationLoading = animationLoading;
 window.getCookie = getCookie;
+window.animationLoading = animationLoading;
+window.backPages = backPages;
