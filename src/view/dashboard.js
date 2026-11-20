@@ -40,11 +40,11 @@ const section = async (a, el_this) => {
   if (a == "dashboard") {
     div.innerHTML = `
     <div
-            class="w-full bg-slate-300 h-fit shrink-0 flex flex-row gap-1 p-1 overflow-x-scroll"
+            class="w-full bg-white h-fit shrink-0 flex flex-row gap-1 p-1 overflow-x-scroll"
             id="staff"
           ></div>
      <div class="bg-white h-full w-full flex flex-col justify-start">
-            <!--<div class="w-full h-[70px]">
+            <div class="w-full h-[70px]">
               <div class="w-full flex justify-between">
                 <h1 class="text-2xl ml-2">Kerusakan</h1>
                 <div class="w-[200px] bg-amber-100 flex items-center">
@@ -70,11 +70,11 @@ const section = async (a, el_this) => {
                 </ul>
               </div>
             </div>
-            <div class="w-full bg-gray-100 max-h-[600px] px-1 pb-1 relative overflow-y-scroll" id="kerusakan"></div>-->
+            <div class="w-full bg-gray-100 max-h-[600px] px-1 pb-1 relative overflow-y-scroll" id="kerusakan"></div>
           </div>
     `;
     showStaffBoxs("staff");
-    // getDataBrokeness("kerusakan", "dashboard");
+    getDataBrokeness("kerusakan", "dashboard");
     animationLoading("content-right");
     activeListHilight(
       document.getElementById("ul-dashboard"),
@@ -132,7 +132,7 @@ const section = async (a, el_this) => {
   } else if (a == "staff") {
     div.innerHTML = `
      <div
-            class="w-full h-full bg-slate-300 flex flex-wrap justify-center gap-1 p-1 relative overflow-y-scroll content-start"
+            class="w-full h-full bg-transparent flex flex-wrap justify-center gap-1 p-1 relative overflow-y-scroll content-start"
             id="staff"
           ></div>
     `;
@@ -150,7 +150,7 @@ const section = async (a, el_this) => {
     <div id="content" ></div>
       <div class="h-[50%] w-full bg-white flex flex-wrap overflow-y-scroll gap-1 justify-center p-1" id="input-pesanan"></div>
     
-      <div class="h-[50%] w-full bg-white flex flex-wrap justify-around overflow-y-scroll p-1 gap-2" id="pesanan"></div>
+      <div class="h-[50%] w-full bg-white border-t-2 border-gray-100 flex flex-wrap justify-around overflow-y-scroll p-1 gap-2" id="pesanan"></div>
       `;
 
     input_pesanan.showItems();
