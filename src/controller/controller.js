@@ -111,18 +111,18 @@ export const toggleFormEdit = (id, parent, section, el_this) => {
                   >
                 </span>
               </div>
-              <div class="flex justify-around gap-2 p-1">
+              <div class="flex w-full justify-around gap-2 p-1">
                 <button
-                  class="bg-green-200 w-[50%] p-2 rounded cursor-pointer hover:shadow"
+                  class="bg-green-100 flex-1 p-2 rounded cursor-pointer hover:shadow"
                   onclick="sendUpdateStocks({id : ${data.id},total : document.getElementById('input-total').value}, '${section}', '${el_this}')"
                 >
-                  simpan
+                  update
                 </button>
                 <button
-                  class="bg-orange-200 w-[50%] p-2 rounded cursor-pointer hover:shadow"
+                  class="bg-orange-100 flex-1 p-2 rounded cursor-pointer hover:shadow"
                   onclick="toggleFormEdit()"
                 >
-                  batal
+                  cancel
                 </button>
               </div>
             </div>

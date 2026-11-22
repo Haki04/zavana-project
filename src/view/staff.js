@@ -15,10 +15,10 @@ export const showStaffBoxs = async (element) => {
       case "new":
         bg_status_color = "bg-yellow-100";
         break;
-      case "offline":
+      case "off":
         bg_status_color = "bg-gray-100";
         break;
-      case "online":
+      case "on":
         bg_status_color = "bg-green-100";
         break;
     }
@@ -91,7 +91,7 @@ export const addEditStaff = async (parent, id) => {
         <select class="w-[80%] bg-white p-2 shadow cursor-pointer">
           ${!id ? `` : `<option value="${data_edit_staf_form[0].user_status}"  selected disabled>${data_edit_staf_form[0].user_status}</option>`}
           <option value="" disabled ${!id ? `selected` : ``}>Status</option>
-          <option value="new">new</option>
+          <option class="${data_edit_staf_form[0].user_status != `new` ? `hidden` : ``}" value="new">new</option>
           <option value="off">offline</option>
           <option value="on">online</option>
         </select>
@@ -118,7 +118,13 @@ const deleteButton = (id) => {
 };
 
 const deleteStaff = async (id) => {
-  alert("berhasil di bapus " + id);
+  const responses = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/users/delete?id_staff=${id}`,
+  ).then((res) => res.json());
+  if (responses.status == 200) {
+    alert(responses.message + " menghapus staff");
+    showStaffBoxs("staff");
+  }
 };
 
 const passwordDefaultGeneret = (el_this) => {

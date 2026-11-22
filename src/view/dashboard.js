@@ -109,7 +109,7 @@ const section = async (a, el_this) => {
     div.innerHTML = `
      <input class="hidden" type="checkbox" name="" id="toggle" />
      <div
-            class="w-full h-full flex flex-row justify-center gap-1 p-1 items-center relative"
+            class="w-full h-full bg-white flex flex-row justify-center gap-1 p-1 items-center relative"
             id="content"
           ></div>
     `;
@@ -132,7 +132,7 @@ const section = async (a, el_this) => {
   } else if (a == "staff") {
     div.innerHTML = `
      <div
-            class="w-full h-full bg-transparent flex flex-wrap justify-center gap-1 p-1 relative overflow-y-scroll content-start"
+            class="w-full h-full bg-white flex flex-wrap justify-center gap-1 p-1 relative overflow-y-scroll content-start"
             id="staff"
           ></div>
     `;
@@ -240,6 +240,7 @@ const section = async (a, el_this) => {
       el_this,
       "bg-yellow-100",
     );
+    animationLoading("content-right");
     showInformation("content-information", await getInformation());
   } else if (a == "purchases") {
     div.innerHTML = `
@@ -309,6 +310,7 @@ const section = async (a, el_this) => {
       el_this,
       "bg-yellow-100",
     );
+    animationLoading("content-right");
     showPurchasesItem("content-purchases");
     selectRenderCek();
     showHaveMadeItemPurchasesButton();
