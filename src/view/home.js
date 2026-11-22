@@ -4,10 +4,13 @@ const about =
   "project ini dibuat untuk memudahkan para staff zavana room untuk melakukan inventory maupun hal sejenisnya";
 const developer = [{ dev: "kiki" }];
 
+document.getElementById("btn-login").textContent =
+  getCookie().level == 1 ? "Dashboard" : "Profile";
+
 const hilightUl = (element) => {
   const ul = element.parentElement.querySelectorAll("li");
   const p = document.getElementById("description");
-  changeDescription(element.textContent.toLowerCase(), p);
+  changeDescription(element, p);
   ul.forEach((el) => {
     if (el !== element) {
       el.classList.add("bg-white");
@@ -26,12 +29,11 @@ const printSosialMedia = (p) => {
 };
 
 const changeDescription = (params, paragraph) => {
-  if (params == "about") {
+  if (params.textContent.toLowerCase() == "about") {
     paragraph.textContent = about;
-  } else if (params == "developer") {
+  } else if (params.textContent.toLowerCase() == "developer") {
     printSosialMedia(paragraph);
   } else {
-    if (getCookie()) params.textContent = "Profile";
     paragraph.innerHTML = "";
     getCookie()
       ? (window.location.href = "/pages/users/profile.html")
