@@ -1,6 +1,4 @@
 import {
-  animationLoading,
-  backPages,
   getCookie,
   plusMinus,
   toggleFormEdit,
@@ -63,7 +61,7 @@ export const showBoxStocks = async (section, el_this, filter_keyword) => {
   data.map((item) => {
     content_stocks.innerHTML += `
        <div
-            class="w-[150px] h-[100px] bg-gray-100 rounded overflow-hidden relative shadow pt-1 hover:scale-105 hover:z-[1] hover:shadow transition cursor-pointer"
+            class="w-[150px] h-[100px] bg-gray-100 rounded overflow-hidden relative shadow hover:scale-105 hover:z-[1] hover:shadow transition cursor-pointer flex flex-col"
           >
           <span onclick="showMoreDetailStocks(${item.id}, '${section}')" class="absolute left-0 ml-1 top-0 w-[20px]"><img class="w-full" src="/icon/info.png" /></span>
             <span
@@ -71,11 +69,11 @@ export const showBoxStocks = async (section, el_this, filter_keyword) => {
               onclick="toggleFormEdit(${item.id}, '${getCookie().level != 1 ? `body` : `#content`}', '${section}', '${el_this}')"
               >edit</span
             >
-            <div class="w-full bg-white h-[70%] flex justify-end items-center flex-col">
+            <div class="w-full flex-3 bg-white h-[70%] flex justify-end items-center flex-col">
               <h1 class="text-2xl font-bold truncate">${item.name}</h1>
              <span class="text-[14px] ">${item.type}</span>
             </div>
-            <div class="w-full flex justify-center items-center">
+            <div class="w-full flex-1 flex justify-center items-center">
               <span class=""
                 >total : <span class="font-bold">${item.total} ${item.satuan}</span></span
               >
@@ -100,7 +98,10 @@ const showMoreDetailStocks = async (id_optional, section) => {
           ${keys != `coment` ? `<span class="flex-1 shadow bg-white p-2">${keys} : <span class="font-bold">${item}</span></span>` : `<textarea class="max-h-[200px] p-1 shadow bg-gray-50 inline-block" disabled>${!item ? `-` : item}</textarea>`}`,
           )
           .join("")}
-          <button class="flex-1 w-1/2 bg-yellow-100 capitalize p-2 rounded hover:bg-yellow-200 cursor-pointer transition" onclick="this.parentElement.parentElement.remove()">close</button>
+         <div class="w-full flex *:flex-1 gap-2">
+          <button class=" bg-yellow-100 capitalize p-2 rounded hover:bg-yellow-200 cursor-pointer transition" onclick="this.parentElement.parentElement.parentElement.remove()">close</button>
+           <button class=" bg-red-100 capitalize p-2 rounded hover:bg-red-200 cursor-pointer transition" onclick="if(confirm('ingin menghapus stock ?'))deleteStocks(${data[0].id})">delete</button>
+         </div>
       </div>
     </div>
     `;
@@ -108,6 +109,19 @@ const showMoreDetailStocks = async (id_optional, section) => {
 
 const fillterStocks = async (kategory) => {
   showBoxStocks(getCookie().position, "", kategory);
+};
+
+const deleteStocks = async (id) => {
+  const responses = await fetch(
+    `${import.meta.env.VITE_URL_SERVER_DEV}/api/stocks/delete?id_stock=${id}`,
+  ).then((res) => res.json());
+  if (responses.status == 200) {
+    alert(`${responses.message} menghapus stock`);
+    showBoxStocks(getCookie().position);
+  } else {
+    alert(responses.message);
+  }
+  return;
 };
 
 const getDataStocks = async (section, filter_keyword, id_optional) => {
@@ -153,3 +167,4 @@ window.greatingUser = greatingUser;
 window.fillterStocks = fillterStocks;
 window.showMoreDetailStocks = showMoreDetailStocks;
 window.getCookie = getCookie;
+window.deleteStocks = deleteStocks;

@@ -70,7 +70,7 @@ const section = async (a, el_this) => {
                 </ul>
               </div>
             </div>
-            <div class="w-full bg-gray-100 max-h-[600px] px-1 pb-1 relative overflow-y-scroll" id="kerusakan"></div>
+            <div class="w-full bg-white max-h-[600px] px-1 pb-1 relative overflow-y-scroll" id="kerusakan"></div>
           </div>
     `;
     showStaffBoxs("staff");

@@ -24,7 +24,7 @@ export const showStaffBoxs = async (element) => {
     }
     document.getElementById(element).innerHTML += `
              <div
-              class="w-[150px] shrink-0 h-fit bg-white rounded-b-2xl rounded-t flex flex-col justify-start items-center p-1 shadow border-2 border-gray-400 relative"
+              class="w-[150px] shrink-0 h-fit bg-white  rounded flex flex-col justify-start items-center p-1 shadow border-2 border-gray-400 relative"
             >
             <span class="absolute w-[10px] h-fit left-1 top-1 cursor-pointer" onclick="addEditStaff('${element}', ${item.user_id})">
               <img src="/icon/pencil.png" class="w-full"/>
