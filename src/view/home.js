@@ -4,8 +4,10 @@ const about =
   "project ini dibuat untuk memudahkan para staff zavana room untuk melakukan inventory maupun hal sejenisnya";
 const developer = [{ dev: "kiki" }];
 
+if(getCookie()){
 document.getElementById("btn-login").textContent =
   getCookie().level == 1 ? "Dashboard" : "Profile";
+}
 
 const hilightUl = (element) => {
   const ul = element.parentElement.querySelectorAll("li");
