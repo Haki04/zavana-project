@@ -40,44 +40,6 @@ const section = async (a, el_this) => {
   const div = document.getElementById("content-right");
   if (a == "dashboard") {
     dashboardItems(div);
-    return;
-    div.innerHTML = `
-    <div
-            class="w-full bg-white h-fit shrink-0 flex flex-row gap-1 p-1 overflow-x-scroll"
-            id="staff"
-          ></div>
-     <div class="bg-white h-full w-full flex flex-col justify-start">
-            <div class="w-full h-[70px]">
-              <div class="w-full flex justify-between">
-                <h1 class="text-2xl ml-2">Kerusakan</h1>
-                <div class="w-[200px] bg-amber-100 flex items-center">
-              
-              <select
-                name=""
-                id="select-dashboard-dashboard"
-                class="flex-2"
-                onchange="filterKerusakan(this.value)"
-              ></select>
-            </div>
-              </div>
-              <div class="w-full bg-white">
-              <div class="w-[100px] bg-red-300 ">
-              
-              </div>
-                <ul class="flex flex-row justify-around items-center">
-                  <li>posisi</li>
-                  <li>repoter</li>
-                  <li>status</li>
-                  <li>date</li>
-                  <li>action</li>
-                </ul>
-              </div>
-            </div>
-            <div class="w-full bg-white max-h-[600px] px-1 pb-1 relative overflow-y-scroll" id="kerusakan"></div>
-          </div>
-    `;
-    showStaffBoxs("staff");
-    getDataBrokeness("kerusakan", "dashboard");
     animationLoading("content-right");
     activeListHilight(
       document.getElementById("ul-dashboard"),
