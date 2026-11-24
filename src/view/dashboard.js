@@ -17,6 +17,7 @@ import {
   showPurchasesItem,
 } from "./purchases.js";
 import { showItemRooms } from "./rooms.js";
+import dashboardItems from "./dashboard-items.js";
 
 document.getElementById("tag-admin").innerHTML =
   `${getCookie().name} - ${getCookie().level == 1 ? `<span class="bg-amber-100 rounded inline-block px-3 uppercase">admin <span class="lowercase">lvl</span> ${getCookie().level}</span> ` : ``}`;
@@ -38,6 +39,8 @@ const section = async (a, el_this) => {
   document.querySelectorAll("#back-pages").forEach((item) => item.remove());
   const div = document.getElementById("content-right");
   if (a == "dashboard") {
+    dashboardItems(div);
+    return;
     div.innerHTML = `
     <div
             class="w-full bg-white h-fit shrink-0 flex flex-row gap-1 p-1 overflow-x-scroll"
